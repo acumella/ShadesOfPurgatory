@@ -1,54 +1,95 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public Rigidbody2D rb;
-    public Animator anim;
+    private Rigidbody2D rb;
+    private Animator anim;
+    public static PlayerController current;
+
+    public float speed;
+    public bool isGrounded;
+    public float jumpForce;
 
     public float timeJump;
     private float timeJumpCounter;
-    public float jumpForce;
 
-    private void Update()
+    private float moveSide;
+    private bool jumped = false;
+    private bool jumpReleased = true;
+
+    private void Awake()
     {
-        
-        if (Input.GetKey(KeyCode.A))
+        if (current == null)
         {
-            rb.velocity = new Vector2(-10, rb.velocity.y);
-            gameObject.GetComponent<SpriteRenderer>().flipX = true;
-            anim.SetBool("running", true);
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            rb.velocity = new Vector2(10, rb.velocity.y);
-            gameObject.GetComponent<SpriteRenderer>().flipX = false;
-            anim.SetBool("running", true);
+            current = this;
         }
         else
         {
-            rb.velocity = new Vector2(0, rb.velocity.y);
-            anim.SetBool("running", false);
+            Destroy(this);
         }
-
-
-        if (Input.GetKey(KeyCode.Space) && timeJumpCounter>0)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            timeJumpCounter -= Time.deltaTime;
-            anim.SetBool("jumping", true);
-        }
-
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
+    void Start()
     {
-        if (col.gameObject.tag == "ground")
+        rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+    }
+
+    void OnMove(InputValue input)
+    {
+        moveSide = input.Get<Vector2>().x;
+    }
+
+    void OnJumpPress()
+    {
+        if (isGrounded) { 
+            jumpReleased = false;
+            jumped = true;
+        }
+    }
+
+    void OnJumpRelease()
+    {
+        jumpReleased = true;
+        jumped = false;        
+    }
+
+    void Update()
+    {
+        if(isGrounded)
         {
             timeJumpCounter = timeJump;
             anim.SetBool("jumping", false);
         }
     }
 
+
+    void FixedUpdate()
+    {
+        if (timeJumpCounter > 0 && !jumpReleased)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            anim.SetBool("jumping", true);
+            timeJumpCounter -= Time.deltaTime;
+            jumped = false;
+        }
+
+        rb.velocity = new Vector2(moveSide * speed, rb.velocity.y);
+
+        if (rb.velocity[0] < 0)
+        {
+            transform.localScale = new Vector2(-1, 1);
+            anim.SetBool("running", true);
+        } else if(rb.velocity[0] > 0)
+        {
+            transform.localScale = new Vector2(1, 1);
+            anim.SetBool("running", true);
+        } else {
+            anim.SetBool("running", false);
+        }
+    }
+    
 }
