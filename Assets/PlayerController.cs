@@ -11,21 +11,23 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
     public static PlayerController current;
 
-    [SerializeField] private float jumpForce;
-    [SerializeField] private float speed;
-    public bool isGrounded;
+    private readonly int IDLE = 0, RUNNING = 1, JUMPING = 2;
 
+    [SerializeField] private float speed;
+    [SerializeField] private float jumpForce;
     [SerializeField] private float timeJump;
-    private float timeJumpCounter;
+    [SerializeField] private TextMeshProUGUI healthText;
 
     private float moveSide;
+
+    private bool isGrounded;
+    private float timeJumpCounter;
     private bool jumpReleased = true;
 
     private bool leftPressed = false;
-    Vector3 mouseLastPos = Mouse.current.position.ReadValue();
+    private Vector3 mouseLastPos = Mouse.current.position.ReadValue();
 
-    private int health = 5;
-    [SerializeField] private TextMeshProUGUI healthText; 
+    private int health;
 
     private void Awake()
     {
@@ -43,6 +45,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        health = 5;
         healthText.text = health.ToString();
     }
 
@@ -91,12 +94,24 @@ public class PlayerController : MonoBehaviour
 
     //====================== FUNCTIONS ==============================
 
+    public void Ground(bool g)
+    {
+        isGrounded = g;
+    }
+
+    private void SetState(int state)
+    {
+        if (state == JUMPING) anim.SetInteger("state", JUMPING);
+        else if (state == RUNNING) anim.SetInteger("state", RUNNING);
+        else anim.SetInteger("state", IDLE);
+    }
+
+
     private void CheckGround()
     {
         if (isGrounded)
         {
             timeJumpCounter = timeJump;
-            anim.SetBool("jumping", false);
         }
     }
 
@@ -130,7 +145,7 @@ public class PlayerController : MonoBehaviour
         if (timeJumpCounter > 0 && !jumpReleased)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            anim.SetBool("jumping", true);
+            SetState(JUMPING);
             timeJumpCounter -= Time.deltaTime;
         }
     }
@@ -145,16 +160,16 @@ public class PlayerController : MonoBehaviour
         if (rb.velocity[0] < 0)
         {
             transform.localScale = new Vector2(-1, 1);
-            anim.SetBool("running", true);
+            if(isGrounded) SetState(RUNNING);
         }
         else if (rb.velocity[0] > 0)
         {
             transform.localScale = new Vector2(1, 1);
-            anim.SetBool("running", true);
+            if (isGrounded) SetState(RUNNING);
         }
         else
         {
-            anim.SetBool("running", false);
+            if (isGrounded) SetState(IDLE);
         }
     }
 

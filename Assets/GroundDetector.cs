@@ -6,11 +6,11 @@ public class GroundDetector : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "ground") PlayerController.current.isGrounded = true;
+        if (collision.gameObject.tag == "ground") PlayerController.current.Ground(true);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "ground") PlayerController.current.isGrounded = false;
+        if (collision.gameObject.tag == "ground") PlayerController.current.Ground(false);
     }
 }
