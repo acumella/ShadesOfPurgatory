@@ -1,7 +1,9 @@
 ﻿ using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,17 +11,21 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
     public static PlayerController current;
 
-    public float speed;
+    [SerializeField] private float jumpForce;
+    [SerializeField] private float speed;
     public bool isGrounded;
-    public float jumpForce;
 
-    public float timeJump;
+    [SerializeField] private float timeJump;
     private float timeJumpCounter;
 
     private float moveSide;
     private bool jumpReleased = true;
 
-    bool leftPressed = false;
+    private bool leftPressed = false;
+    Vector3 mouseLastPos = Mouse.current.position.ReadValue();
+
+    private int health = 5;
+    [SerializeField] private TextMeshProUGUI healthText; 
 
     private void Awake()
     {
@@ -37,6 +43,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        healthText.text = health.ToString();
     }
 
     void Update()
@@ -99,13 +106,22 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
-
+           
             RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
 
-            if (hit.collider != null)
+            Debug.Log((mousePos - mouseLastPos).magnitude);
+            float distance = (mousePos - mouseLastPos).magnitude;
+
+            if (hit.collider != null && distance>0.4)
             {
-                Debug.Log(hit.collider.gameObject.name);
+                if(hit.collider.tag == "Player")
+                {
+                    health-=1;
+                    healthText.text = health.ToString();
+                }
             }
+
+            mouseLastPos = mousePos;
         }
     }
 
