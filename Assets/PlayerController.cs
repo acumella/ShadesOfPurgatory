@@ -60,7 +60,8 @@ public class PlayerController : MonoBehaviour
     {
         Jump();
         Move();
-        Turn();      
+        Turn();
+        AnimState();
     }
 
     //====================== PLAYER INPUT ========================
@@ -69,7 +70,7 @@ public class PlayerController : MonoBehaviour
         moveSide = input.Get<Vector2>().x;
     }
 
-    void OnJumpPress()
+    void OnJumpPressed()
     {
         if (isGrounded)
         {
@@ -77,7 +78,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnJumpRelease()
+    void OnJumpReleased()
     {
         jumpReleased = true;
     }
@@ -91,6 +92,7 @@ public class PlayerController : MonoBehaviour
     {
         leftPressed = false;
     }
+    
 
     //====================== FUNCTIONS ==============================
 
@@ -99,13 +101,17 @@ public class PlayerController : MonoBehaviour
         isGrounded = g;
     }
 
-    private void SetState(int state)
+    private void AnimState()
     {
-        if (state == JUMPING) anim.SetInteger("state", JUMPING);
-        else if (state == RUNNING) anim.SetInteger("state", RUNNING);
-        else anim.SetInteger("state", IDLE);
+        if (!isGrounded) SetState(JUMPING);
+        else if (rb.velocity.magnitude > 0) SetState(RUNNING);
+        else SetState(IDLE);
     }
 
+    private void SetState(int state)
+    {
+        anim.SetInteger("state", state);
+    }
 
     private void CheckGround()
     {
@@ -145,7 +151,6 @@ public class PlayerController : MonoBehaviour
         if (timeJumpCounter > 0 && !jumpReleased)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            SetState(JUMPING);
             timeJumpCounter -= Time.deltaTime;
         }
     }
@@ -160,16 +165,10 @@ public class PlayerController : MonoBehaviour
         if (rb.velocity[0] < 0)
         {
             transform.localScale = new Vector2(-1, 1);
-            if(isGrounded) SetState(RUNNING);
         }
         else if (rb.velocity[0] > 0)
         {
             transform.localScale = new Vector2(1, 1);
-            if (isGrounded) SetState(RUNNING);
-        }
-        else
-        {
-            if (isGrounded) SetState(IDLE);
         }
     }
 

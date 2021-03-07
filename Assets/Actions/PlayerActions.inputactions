@@ -30,7 +30,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "JumpPress",
+                    "name": "JumpPressed",
                     "type": "Button",
                     "id": "48a30f62-19c3-47b1-becc-171d2a953ba9",
                     "expectedControlType": "Button",
@@ -38,7 +38,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "JumpRelease",
+                    "name": "JumpReleased",
                     "type": "Button",
                     "id": "4f5b7025-8065-4b50-82e4-8a871a021848",
                     "expectedControlType": "Button",
@@ -290,7 +290,7 @@
                     "interactions": "Press",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "JumpPress",
+                    "action": "JumpPressed",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -301,7 +301,7 @@
                     "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "JumpRelease",
+                    "action": "JumpReleased",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
