@@ -16,11 +16,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private float timeJump;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
     [SerializeField] private TextMeshProUGUI healthText;
 
     private float moveSide;
 
     private bool isGrounded;
+    
     private float timeJumpCounter;
     private bool jumpReleased = true;
 
@@ -96,11 +99,6 @@ public class PlayerController : MonoBehaviour
 
     //====================== FUNCTIONS ==============================
 
-    public void Ground(bool g)
-    {
-        isGrounded = g;
-    }
-
     private void AnimState()
     {
         if (!isGrounded) SetState(JUMPING);
@@ -115,6 +113,7 @@ public class PlayerController : MonoBehaviour
 
     private void CheckGround()
     {
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
         if (isGrounded)
         {
             timeJumpCounter = timeJump;
