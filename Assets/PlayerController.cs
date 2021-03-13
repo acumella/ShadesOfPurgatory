@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Animator anim;
+    private CapsuleCollider2D capsule;
     public static PlayerController current;
 
     private readonly int IDLE = 0, RUNNING = 1, JUMPING = 2;
@@ -16,7 +17,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private float timeJump;
-    [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private TextMeshProUGUI healthText;
 
@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        capsule = GetComponent<CapsuleCollider2D>();
         health = 5;
         healthText.text = health.ToString();
     }
@@ -113,7 +114,8 @@ public class PlayerController : MonoBehaviour
 
     private void CheckGround()
     {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        RaycastHit2D raycastHit = Physics2D.Raycast(capsule.bounds.center, Vector2.down, capsule.bounds.extents.y + .01f, groundLayer);
+        isGrounded = raycastHit.collider != null;
         if (isGrounded)
         {
             timeJumpCounter = timeJump;
