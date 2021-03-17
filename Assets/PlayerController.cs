@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     private bool jumpReleased = true;
 
     private bool leftPressed = false;
-    private Vector3 mouseLastPos = Mouse.current.position.ReadValue();
+    private Vector3 mouseLastPos;
 
     private int health;
 
@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
         capsule = GetComponent<CapsuleCollider2D>();
         health = 5;
         healthText.text = health.ToString();
+        mouseLastPos = Mouse.current.position.ReadValue();
     }
 
     void Update()
