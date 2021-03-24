@@ -14,9 +14,11 @@ public class PlayerController : MonoBehaviour
 
     private readonly int IDLE = 0, RUNNING = 1, JUMPING = 2;
 
+    [SerializeField] private CursorManager cursor;
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private float timeJump;
+    [SerializeField] private float timeHit;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private TextMeshProUGUI healthText;
 
@@ -29,6 +31,7 @@ public class PlayerController : MonoBehaviour
 
     private bool leftPressed = false;
     private Vector3 mouseLastPos;
+    private float timeHitCounter;
 
     private int health;
 
@@ -90,11 +93,13 @@ public class PlayerController : MonoBehaviour
 
     void OnLeftPressed()
     {
+        cursor.ChangeCursorOnClick();
         leftPressed = true;
     }
 
     void OnLeftReleased()
     {
+        cursor.ChangeCursorToDefault();
         leftPressed = false;
     }
     
@@ -127,24 +132,31 @@ public class PlayerController : MonoBehaviour
     {
         if (leftPressed)
         {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
-           
-            RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
+            if (timeHitCounter <= 0) {
+                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+                Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
-            Debug.Log((mousePos - mouseLastPos).magnitude);
-            float distance = (mousePos - mouseLastPos).magnitude;
+                RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
 
-            if (hit.collider != null && distance>0.4)
-            {
-                if(hit.collider.tag == "Player")
+                //Debug.Log((mousePos - mouseLastPos).magnitude);
+                float distance = (mousePos - mouseLastPos).magnitude;
+
+
+
+                if (hit.collider != null && distance > 0.5)
                 {
-                    health-=1;
-                    healthText.text = health.ToString();
+                    if (hit.collider.tag == "Enemy")
+                    {
+                        float damage = (distance * 0.3f) / 0.5f;
+                        if (damage > 1) damage = 1;
+                        hit.collider.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(damage);
+                        timeHitCounter = timeHit;
+                    }
                 }
+                mouseLastPos = mousePos;
+            } else {
+                timeHitCounter -= Time.deltaTime;
             }
-
-            mouseLastPos = mousePos;
         }
     }
 
