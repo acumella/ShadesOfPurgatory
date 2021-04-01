@@ -29,7 +29,7 @@ public class BulletController : MonoBehaviour
         if(!collision.CompareTag("Enemy")) DestroyBullet();
     }
 
-    private void DestroyBullet()
+    public void DestroyBullet()
     {
         Destroy(gameObject);
     }

@@ -29,7 +29,8 @@ public class PlayerController : MonoBehaviour
     private float timeJumpCounter;
     private bool jumpReleased = true;
 
-    private bool leftPressed = false;
+    private bool leftPressed, attacking = false;
+    private bool rightPressed, defending = false;
     private Vector3 mouseLastPos;
     private float timeHitCounter;
 
@@ -93,16 +94,50 @@ public class PlayerController : MonoBehaviour
 
     void OnLeftPressed()
     {
-        cursor.ChangeCursorOnClick();
+        cursor.ChangeCursorOnLeftClick();
+        attacking = true;
+        defending = false;
         leftPressed = true;
     }
 
     void OnLeftReleased()
     {
-        cursor.ChangeCursorToDefault();
+        if (rightPressed)
+        {
+            defending = true;
+            cursor.ChangeCursorOnRightClick();
+        }
+        else
+        {
+            cursor.ChangeCursorToDefault();
+        }
+        attacking = false;
         leftPressed = false;
     }
-    
+
+    void OnRightPressed()
+    {
+        cursor.ChangeCursorOnRightClick();
+        attacking = false;
+        defending = true;
+        rightPressed = true;
+    }
+
+    void OnRightReleased()
+    {
+        if (leftPressed)
+        {
+            attacking = true;
+            cursor.ChangeCursorOnLeftClick();
+        }
+        else
+        {
+            cursor.ChangeCursorToDefault();
+        }
+        defending = false;
+        rightPressed = false;
+    }
+
 
     //====================== FUNCTIONS ==============================
 
@@ -130,26 +165,24 @@ public class PlayerController : MonoBehaviour
 
     private void MouseHit()
     {
-        if (leftPressed)
+        if (attacking)
         {
             if (timeHitCounter <= 0) {
                 Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
                 Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
-                RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
+                Collider2D hit = Physics2D.OverlapCircle(mousePos2D, 0.5f);
 
                 //Debug.Log((mousePos - mouseLastPos).magnitude);
                 float distance = (mousePos - mouseLastPos).magnitude;
 
-
-
-                if (hit.collider != null && distance > 0.5)
+                if (hit != null && distance > 0.5)
                 {
-                    if (hit.collider.tag == "Enemy")
+                    if (hit.tag == "Enemy")
                     {
                         float damage = (distance * 0.3f) / 0.5f;
                         if (damage > 1) damage = 1;
-                        hit.collider.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(damage);
+                        hit.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(damage);
                         timeHitCounter = timeHit;
                     }
                 }
@@ -157,6 +190,22 @@ public class PlayerController : MonoBehaviour
             } else {
                 timeHitCounter -= Time.deltaTime;
             }
+
+        } else if (defending) {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
+
+            Collider2D hit = Physics2D.OverlapCircle(mousePos2D, 0.5f);
+
+            if (hit != null)
+            {
+                if (hit.tag == "Bullet")
+                {
+                    hit.gameObject.GetComponent<BulletController>().DestroyBullet();
+                }
+            }
+
+
         }
     }
 

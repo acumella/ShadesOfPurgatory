@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ground
   - Enemy
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -48,4 +49,7 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 2986271949
+    locked: 0
+  - name: Mouse
+    uniqueID: 91394227
     locked: 0

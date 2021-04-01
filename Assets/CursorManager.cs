@@ -4,19 +4,34 @@ using UnityEngine;
 
 public class CursorManager : MonoBehaviour
 {
-    public Texture2D cursor;
-    public Texture2D cursorClicked;
+
+    private SpriteRenderer rend;
+    
+    public Sprite cursor;
+    public Sprite cursorLeftClicked;
+    public Sprite cursorRightClicked;
 
     void Awake()
     {
-        ChangeCursorToDefault();
         Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
     }
 
-    private void ChangeCursor(Texture2D cursorType)
+    void Start()
     {
-        Vector2 hotspot = new Vector2(cursorType.width / 2, cursorType.height / 2);
-        Cursor.SetCursor(cursorType, hotspot, CursorMode.Auto);
+        rend = GetComponent<SpriteRenderer>();
+        ChangeCursorToDefault();
+    }
+
+    private void Update()
+    {
+        Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        transform.position = pos;
+    }
+
+    private void ChangeCursor(Sprite cursorType)
+    {
+        rend.sprite = cursorType;
     }
 
     public void ChangeCursorToDefault()
@@ -24,9 +39,14 @@ public class CursorManager : MonoBehaviour
         ChangeCursor(cursor);
     }
 
-    public void ChangeCursorOnClick()
+    public void ChangeCursorOnLeftClick()
     {
-        ChangeCursor(cursorClicked);
+        ChangeCursor(cursorLeftClicked);
+    }
+
+    public void ChangeCursorOnRightClick()
+    {
+        ChangeCursor(cursorRightClicked);
     }
 
 
