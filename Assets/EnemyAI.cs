@@ -9,6 +9,10 @@ public class EnemyAI : MonoBehaviour
     private Rigidbody2D rb;
     private Seeker seeker;
     private CapsuleCollider2D capsule;
+    private Animator anim;
+
+
+    private readonly int IDLE = 0, RUNNING = 1, JUMPING = 2, FIRING =3;
 
     [SerializeField] private Transform target;
     [SerializeField] private LayerMask groundLayer;
@@ -41,6 +45,7 @@ public class EnemyAI : MonoBehaviour
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         capsule = GetComponent<CapsuleCollider2D>();
+        anim = GetComponent<Animator>();
 
         InvokeRepeating("UpdatePath", 0f, pathUpdateSeconds);
     }
@@ -51,6 +56,7 @@ public class EnemyAI : MonoBehaviour
         {
             PathFollow();
         }
+        AnimState();
     }
 
     //====================== FUNCTIONS ========================
@@ -164,6 +170,19 @@ public class EnemyAI : MonoBehaviour
         }
         return true;
 
+    }
+
+    private void AnimState()
+    {
+        if (!isGrounded) SetState(JUMPING);
+        else if (Vector3.Distance(transform.position, target.transform.position) <= shootingRange && lineOfSight() && canShoot) SetState(FIRING);
+        else if (rb.velocity.magnitude > 0.5) SetState(RUNNING);
+        else SetState(IDLE);
+    }
+
+    private void SetState(int state)
+    {
+        anim.SetInteger("state", state);
     }
 
 }

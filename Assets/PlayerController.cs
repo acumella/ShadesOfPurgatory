@@ -94,7 +94,6 @@ public class PlayerController : MonoBehaviour
 
     void OnLeftPressed()
     {
-        cursor.ChangeCursorOnLeftClick();
         attacking = true;
         defending = false;
         leftPressed = true;
@@ -168,6 +167,9 @@ public class PlayerController : MonoBehaviour
         if (attacking)
         {
             if (timeHitCounter <= 0) {
+
+                cursor.ChangeCursorOnLeftClick();
+
                 Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
                 Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
@@ -180,6 +182,7 @@ public class PlayerController : MonoBehaviour
                 {
                     if (hit.tag == "Enemy")
                     {
+                        cursor.ChangeCursorToDefault();
                         float damage = (distance * 0.3f) / 0.5f;
                         if (damage > 1) damage = 1;
                         hit.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(damage);
@@ -187,8 +190,6 @@ public class PlayerController : MonoBehaviour
                     }
                 }
                 mouseLastPos = mousePos;
-            } else {
-                timeHitCounter -= Time.deltaTime;
             }
 
         } else if (defending) {
@@ -204,9 +205,14 @@ public class PlayerController : MonoBehaviour
                     hit.gameObject.GetComponent<BulletController>().DestroyBullet();
                 }
             }
-
-
         }
+
+        if (timeHitCounter > 0)
+        {
+            timeHitCounter -= Time.deltaTime;
+        }
+
+
     }
 
     private void Jump()

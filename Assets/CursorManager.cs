@@ -5,11 +5,12 @@ using UnityEngine;
 public class CursorManager : MonoBehaviour
 {
 
-    private SpriteRenderer rend;
-    
-    public Sprite cursor;
-    public Sprite cursorLeftClicked;
-    public Sprite cursorRightClicked;
+    //private SpriteRenderer rend;
+    private Animator anim;
+
+    //public Sprite cursor;
+    //public Sprite cursorLeftClicked;
+    //public Sprite cursorRightClicked;
 
     void Awake()
     {
@@ -19,7 +20,8 @@ public class CursorManager : MonoBehaviour
 
     void Start()
     {
-        rend = GetComponent<SpriteRenderer>();
+        //rend = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
         ChangeCursorToDefault();
     }
 
@@ -29,24 +31,25 @@ public class CursorManager : MonoBehaviour
         transform.position = pos;
     }
 
-    private void ChangeCursor(Sprite cursorType)
+    private void ChangeCursor(int cursorType)
     {
-        rend.sprite = cursorType;
+        //rend.sprite = cursorType;
+        anim.SetInteger("state", cursorType);
     }
 
     public void ChangeCursorToDefault()
     {
-        ChangeCursor(cursor);
+        ChangeCursor(0);
     }
 
     public void ChangeCursorOnLeftClick()
     {
-        ChangeCursor(cursorLeftClicked);
+        ChangeCursor(1);
     }
 
     public void ChangeCursorOnRightClick()
     {
-        ChangeCursor(cursorRightClicked);
+        ChangeCursor(2);
     }
 
 

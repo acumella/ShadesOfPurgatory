@@ -263,7 +263,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 89314083}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.706, y: -0.329, z: 0}
+  m_LocalPosition: {x: -0.2, y: 0.41, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 438978783}
@@ -379,7 +379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c172deae46270a5499aea7b9fa6da93f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 3
+  maxHP: 2
 --- !u!114 &438978786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,9 +404,9 @@ MonoBehaviour:
   pathUpdateSeconds: 0.5
   canShoot: 1
   shootingRange: 10
-  bullet: {fileID: 685913081356456428, guid: 2ab2803e1cdc9924398abb2e8cc4d8db, type: 3}
+  bullet: {fileID: 2311565475700800226, guid: 2ab2803e1cdc9924398abb2e8cc4d8db, type: 3}
   muzzle: {fileID: 89314083}
-  startTimeShots: 0.5
+  startTimeShots: 0.4
 --- !u!50 &438978787
 Rigidbody2D:
   serializedVersion: 4
@@ -936,7 +936,7 @@ MonoBehaviour:
   speed: 10
   jumpForce: 12
   timeJump: 0.35
-  timeHit: 0.5
+  timeHit: 1
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -4502,6 +4502,7 @@ GameObject:
   - component: {fileID: 2013390026}
   - component: {fileID: 2013390025}
   - component: {fileID: 2013390024}
+  - component: {fileID: 2013390027}
   m_Layer: 0
   m_Name: Cursor
   m_TagString: Untagged
@@ -4521,9 +4522,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da3146612a099d64b8b1ca7248a5aef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursor: {fileID: 21300000, guid: cb20c4a0aba948742a5dda143c4002e0, type: 3}
-  cursorLeftClicked: {fileID: 21300000, guid: 46da904ab46e18342ad8572d37c4e255, type: 3}
-  cursorRightClicked: {fileID: 21300000, guid: 5acb1ae19396cc447b2a60f8c61c5ed0, type: 3}
 --- !u!212 &2013390025
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4588,3 +4586,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &2013390027
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2013390023}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 58b78902451274b4ab75a30bc5d1fc2a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

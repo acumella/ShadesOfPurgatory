@@ -4,25 +4,31 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
-    public float speed;
+    private Rigidbody2D rb;
     private Transform player;
-    private Vector2 target;
+
+    public float speed;
+
+    
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        target = new Vector2(player.position.x, player.position.y);
-    }
-
-    private void Update()
-    {
-        transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
-
-        if(transform.position.x == target.x && transform.position.y == target.y)
+        rb = GetComponent<Rigidbody2D>();
+        rb.velocity = (player.transform.position - transform.position).normalized * speed;
+        
+        if (rb.velocity.x > 0.05f)
         {
-            DestroyBullet();
+            transform.localScale = new Vector3(-1f * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
+        else if (rb.velocity.x < -0.05f)
+        {
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+
+        Destroy(gameObject, 5);
     }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -31,6 +37,8 @@ public class BulletController : MonoBehaviour
 
     public void DestroyBullet()
     {
-        Destroy(gameObject);
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        GetComponent<Animator>().SetBool("destroying", true);
+        Destroy(gameObject,0.25f);
     }
 }
