@@ -14,11 +14,14 @@ public class PlayerController : MonoBehaviour
 
     private readonly int IDLE = 0, RUNNING = 1, JUMPING = 2;
 
+    [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private LayerMask bulletLayer;
     [SerializeField] private CursorManager cursor;
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private float timeJump;
     [SerializeField] private float timeHit;
+    [SerializeField] private float timeInvulnerability;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private TextMeshProUGUI healthText;
 
@@ -35,6 +38,10 @@ public class PlayerController : MonoBehaviour
     private float timeHitCounter;
 
     private int health;
+    private float invulnerabilityCounter;
+
+    private GameObject[] players;
+    private int previousLevel = 1;
 
     private void Awake()
     {
@@ -50,6 +57,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        DontDestroyOnLoad(transform.gameObject);
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         capsule = GetComponent<CapsuleCollider2D>();
@@ -71,6 +79,7 @@ public class PlayerController : MonoBehaviour
         Move();
         Turn();
         AnimState();
+        ResetInvulnerability();
     }
 
     //====================== PLAYER INPUT ========================
@@ -173,13 +182,14 @@ public class PlayerController : MonoBehaviour
                 Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
                 Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
-                Collider2D hit = Physics2D.OverlapCircle(mousePos2D, 0.5f);
+                Collider2D hit = Physics2D.OverlapCircle(mousePos2D, 0.5f, enemyLayer);
 
                 //Debug.Log((mousePos - mouseLastPos).magnitude);
                 float distance = (mousePos - mouseLastPos).magnitude;
 
                 if (hit != null && distance > 0.5)
                 {
+                    Debug.Log(hit.tag);
                     if (hit.tag == "Enemy")
                     {
                         cursor.ChangeCursorToDefault();
@@ -196,7 +206,7 @@ public class PlayerController : MonoBehaviour
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
-            Collider2D hit = Physics2D.OverlapCircle(mousePos2D, 0.5f);
+            Collider2D hit = Physics2D.OverlapCircle(mousePos2D, 0.5f, bulletLayer);
 
             if (hit != null)
             {
@@ -214,7 +224,6 @@ public class PlayerController : MonoBehaviour
 
 
     }
-
     private void Jump()
     {
         if (timeJumpCounter > 0 && !jumpReleased)
@@ -239,6 +248,35 @@ public class PlayerController : MonoBehaviour
         {
             transform.localScale = new Vector2(1, 1);
         }
+    }
+
+    private void ResetInvulnerability()
+    {
+        if (invulnerabilityCounter > 0)
+        {
+            invulnerabilityCounter -= Time.deltaTime;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Bullet")
+        {
+            if (invulnerabilityCounter <= 0)
+            {
+                health -= 1;
+                invulnerabilityCounter = timeInvulnerability;
+            }
+        }
+        healthText.text = health.ToString();
+    }
+
+    private void OnLevelWasLoaded(int level)
+    {
+        transform.position = GameObject.Find("StartPos"+previousLevel.ToString()).transform.position;
+        previousLevel = level;
+        players = GameObject.FindGameObjectsWithTag("Player");
+        if (players.Length > 1) Destroy(players[1]);
     }
 
 }

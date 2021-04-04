@@ -10,11 +10,10 @@ public class EnemyAI : MonoBehaviour
     private Seeker seeker;
     private CapsuleCollider2D capsule;
     private Animator anim;
-
+    private Transform target;
 
     private readonly int IDLE = 0, RUNNING = 1, JUMPING = 2, FIRING =3;
 
-    [SerializeField] private Transform target;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float speed = 800f;
     [SerializeField] private float nextWaypointDistance = 2f;
@@ -42,6 +41,7 @@ public class EnemyAI : MonoBehaviour
 
     public void Start()
     {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         capsule = GetComponent<CapsuleCollider2D>();
@@ -56,6 +56,7 @@ public class EnemyAI : MonoBehaviour
         {
             PathFollow();
         }
+        GroundCheck();
         AnimState();
     }
 
@@ -81,11 +82,6 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
-        // Check ground
-        RaycastHit2D raycastHit = Physics2D.Raycast(capsule.bounds.center, Vector2.down, capsule.bounds.extents.y + .01f, groundLayer);
-        isGrounded = raycastHit.collider != null;
-
-
         // Force calculation
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
         Vector2 force = direction * speed * Time.deltaTime;
@@ -98,10 +94,11 @@ public class EnemyAI : MonoBehaviour
                 rb.AddForce(Vector2.up * jumpForce);
             }
         }
-        
+
         //Shoot
+        
         float distance = Vector3.Distance(transform.position, target.transform.position);
-        if(distance <= shootingRange && lineOfSight() && canShoot)
+        if (distance <= shootingRange && lineOfSight() && canShoot)
         {
             if (timeShots <= 0)
             {
@@ -165,11 +162,17 @@ public class EnemyAI : MonoBehaviour
         RaycastHit2D sightTest = Physics2D.Raycast(start, direction, distance, groundLayer);
         if (sightTest.collider != null)
         {
-            Debug.Log("Rigidbody collider is: " + sightTest.collider.tag);
+            //Debug.Log("Rigidbody collider is: " + sightTest.collider.tag);
             return false;
         }
         return true;
 
+    }
+
+    private void GroundCheck()
+    {
+        RaycastHit2D raycastHit = Physics2D.Raycast(capsule.bounds.center, Vector2.down, capsule.bounds.extents.y + .01f, groundLayer);
+        isGrounded = raycastHit.collider != null;
     }
 
     private void AnimState()

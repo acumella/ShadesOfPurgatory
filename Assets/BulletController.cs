@@ -13,6 +13,8 @@ public class BulletController : MonoBehaviour
 
     void Start()
     {
+        GetComponent<Animator>().SetBool("destroying", false);
+
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = (player.transform.position - transform.position).normalized * speed;
@@ -32,7 +34,7 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(!collision.CompareTag("Enemy")) DestroyBullet();
+        if (collision.tag != "Enemy" && collision.tag != "Boundaries") DestroyBullet();
     }
 
     public void DestroyBullet()
