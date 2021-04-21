@@ -68,8 +68,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        CheckGround();
-        MouseHit();
+        if (!PauseMenu.isPaused)
+        {
+            CheckGround();
+            MouseHit();
+        }   
     }
 
 
@@ -90,60 +93,78 @@ public class PlayerController : MonoBehaviour
 
     void OnJumpPressed()
     {
-        if (isGrounded)
+        if (!PauseMenu.isPaused)
         {
-            jumpReleased = false;
+            if (isGrounded) {
+                jumpReleased = false;
+            }
         }
+        
     }
 
     void OnJumpReleased()
     {
-        jumpReleased = true;
+        if (!PauseMenu.isPaused)
+        {
+            jumpReleased = true;
+        }
     }
 
     void OnLeftPressed()
     {
-        attacking = true;
-        defending = false;
-        leftPressed = true;
+        if (!PauseMenu.isPaused)
+        {
+            attacking = true;
+            defending = false;
+            leftPressed = true;
+        }
     }
 
     void OnLeftReleased()
     {
-        if (rightPressed)
+        if (!PauseMenu.isPaused)
         {
-            defending = true;
-            cursor.ChangeCursorOnRightClick();
+            if (rightPressed)
+            {
+                defending = true;
+                cursor.ChangeCursorOnRightClick();
+            }
+            else
+            {
+                cursor.ChangeCursorToDefault();
+            }
+            attacking = false;
+            leftPressed = false;
         }
-        else
-        {
-            cursor.ChangeCursorToDefault();
-        }
-        attacking = false;
-        leftPressed = false;
     }
 
     void OnRightPressed()
     {
-        cursor.ChangeCursorOnRightClick();
-        attacking = false;
-        defending = true;
-        rightPressed = true;
+        if (!PauseMenu.isPaused)
+        {
+            cursor.ChangeCursorOnRightClick();
+            attacking = false;
+            defending = true;
+            rightPressed = true;
+        }
     }
 
     void OnRightReleased()
     {
-        if (leftPressed)
+        if (!PauseMenu.isPaused)
         {
-            attacking = true;
-            cursor.ChangeCursorOnLeftClick();
-        }
-        else
-        {
-            cursor.ChangeCursorToDefault();
-        }
-        defending = false;
-        rightPressed = false;
+            if (leftPressed)
+            {
+                attacking = true;
+                cursor.ChangeCursorOnLeftClick();
+            }
+            else
+            {
+                cursor.ChangeCursorToDefault();
+            }
+            defending = false;
+            rightPressed = false;
+        }    
     }
 
 
@@ -173,25 +194,25 @@ public class PlayerController : MonoBehaviour
 
     private void MouseHit()
     {
-        if (attacking)
-        {
-            if (timeHitCounter <= 0) {
+        if (timeHitCounter <= 0) {
 
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
+
+            Collider2D hit = Physics2D.OverlapCircle(mousePos2D, 0.5f, enemyLayer);
+
+            //Debug.Log((mousePos - mouseLastPos).magnitude);
+            float distance = (mousePos - mouseLastPos).magnitude;
+
+            if (attacking)
+            {
                 cursor.ChangeCursorOnLeftClick();
-
-                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-                Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
-
-                Collider2D hit = Physics2D.OverlapCircle(mousePos2D, 0.5f, enemyLayer);
-
-                //Debug.Log((mousePos - mouseLastPos).magnitude);
-                float distance = (mousePos - mouseLastPos).magnitude;
-
-                if (hit != null && distance > 0.5)
+                if (hit != null && distance > 0.5 && attacking)
                 {
-                    Debug.Log(hit.tag);
+                    //Debug.Log((mousePos - mouseLastPos).magnitude);
                     if (hit.tag == "Enemy")
                     {
+                        //Debug.Log(hit.tag);
                         cursor.ChangeCursorToDefault();
                         float damage = (distance * 0.3f) / 0.5f;
                         if (damage > 1) damage = 1;
@@ -199,10 +220,14 @@ public class PlayerController : MonoBehaviour
                         timeHitCounter = timeHit;
                     }
                 }
-                mouseLastPos = mousePos;
             }
 
-        } else if (defending) {
+            mouseLastPos = mousePos;
+        } else {
+            timeHitCounter -= Time.deltaTime;
+        }
+
+        if (defending) {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
@@ -216,13 +241,6 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-
-        if (timeHitCounter > 0)
-        {
-            timeHitCounter -= Time.deltaTime;
-        }
-
-
     }
     private void Jump()
     {
