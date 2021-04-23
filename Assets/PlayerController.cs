@@ -291,10 +291,18 @@ public class PlayerController : MonoBehaviour
 
     private void OnLevelWasLoaded(int level)
     {
-        transform.position = GameObject.Find("StartPos"+previousLevel.ToString()).transform.position;
-        previousLevel = level;
-        players = GameObject.FindGameObjectsWithTag("Player");
-        if (players.Length > 1) Destroy(players[1]);
+        if (level != 0)
+        {
+            transform.position = GameObject.Find("StartPos" + previousLevel.ToString()).transform.position;
+            previousLevel = level;
+            players = GameObject.FindGameObjectsWithTag("Player");
+            if (players.Length > 1) Destroy(players[1]);
+        }
+        else
+        {
+            health = 5;
+            healthText.text = health.ToString();
+        }
     }
 
 }
