@@ -91,7 +91,8 @@ public class EnemyAI : MonoBehaviour
         {
             if (direction.y > jumpNodeHeightRequirement)
             {
-                rb.AddForce(Vector2.up * jumpForce);
+                Debug.Log(direction.y);
+                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             }
         }
 
