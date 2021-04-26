@@ -12,15 +12,20 @@ public class EnemyAI : MonoBehaviour
     private Animator anim;
     private Transform target;
 
-    private readonly int IDLE = 0, RUNNING = 1, JUMPING = 2, FIRING =3;
+    private readonly int IDLE = 0, RUNNING = 1, JUMPING = 2, FIRING = 3, ATTACKING = 4;
 
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask playerLayer;
     [SerializeField] private float speed = 800f;
     [SerializeField] private float nextWaypointDistance = 2f;
     [SerializeField] private float jumpNodeHeightRequirement = 0.8f;
     [SerializeField] private float jumpForce = 2000f;
     [SerializeField] private float activateDistance = 50f;
     [SerializeField] private float pathUpdateSeconds = 0.5f;
+
+    [SerializeField] private float attackRange;
+    [SerializeField] private float attackDelay;
+
 
     [SerializeField] private bool canShoot = false;
     [SerializeField] private float shootingRange;
@@ -37,8 +42,10 @@ public class EnemyAI : MonoBehaviour
     private Path path;
     private int currentWaypoint = 0;
     bool isGrounded;
-    
 
+    private bool isAttacking = false;
+    private float lastAttackTime;
+    
     public void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
@@ -52,7 +59,7 @@ public class EnemyAI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (TargetInDistance() && followEnabled)
+        if (TargetInDistance() && followEnabled && !isAttacking)
         {
             PathFollow();
         }
@@ -91,15 +98,30 @@ public class EnemyAI : MonoBehaviour
         {
             if (direction.y > jumpNodeHeightRequirement)
             {
-                Debug.Log(direction.y);
                 rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             }
         }
 
-        //Shoot
-        
+        // Attack
+        Vector2 posForward = transform.position + transform.forward;
+        float distanceToPlayer = Vector3.Distance(transform.position, target.position);
         float distance = Vector3.Distance(transform.position, target.transform.position);
-        if (distance <= shootingRange && lineOfSight() && canShoot)
+        if (distanceToPlayer < attackRange)
+        {
+            Collider2D hit = Physics2D.OverlapCircle(posForward, attackRange, playerLayer);
+            if (Time.time > lastAttackTime + attackDelay && hit!=null)
+            {
+                if(hit.tag == "Player")
+                {
+                    lastAttackTime = Time.time;
+                    isAttacking = true;
+                    StartCoroutine(Attack());
+                }
+            }
+        }
+
+        // Shoot
+        else if (distance <= shootingRange && lineOfSight() && canShoot)
         {
             if (timeShots <= 0)
             {
@@ -178,7 +200,8 @@ public class EnemyAI : MonoBehaviour
 
     private void AnimState()
     {
-        if (!isGrounded) SetState(JUMPING);
+        if (isAttacking) SetState(ATTACKING);
+        else if (!isGrounded) SetState(JUMPING);
         else if (Vector3.Distance(transform.position, target.transform.position) <= shootingRange && lineOfSight() && canShoot) SetState(FIRING);
         else if (rb.velocity.magnitude > 0.5) SetState(RUNNING);
         else SetState(IDLE);
@@ -187,6 +210,28 @@ public class EnemyAI : MonoBehaviour
     private void SetState(int state)
     {
         anim.SetInteger("state", state);
+    }
+
+    private IEnumerator Attack()
+    {
+        yield return new WaitForSeconds(0.7f);
+
+        Vector2 posForward = transform.position + transform.forward;
+        Collider2D hit = Physics2D.OverlapCircle(posForward, attackRange, playerLayer);
+        if (hit != null)
+        {
+            if(hit.tag == "Player")
+            {
+                hit.GetComponent<PlayerController>().Damage();
+            }
+        }
+
+        yield return new WaitForSeconds(0.3f);
+
+        if (Time.time > lastAttackTime + attackDelay)
+        {
+            isAttacking = false;
+        }
     }
 
 }

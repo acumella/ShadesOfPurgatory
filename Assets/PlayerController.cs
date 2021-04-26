@@ -268,6 +268,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void Damage()
+    {
+        if (invulnerabilityCounter <= 0)
+        {
+            health -= 1;
+            healthText.text = health.ToString();
+            invulnerabilityCounter = timeInvulnerability;
+        }
+    }
+
     private void ResetInvulnerability()
     {
         if (invulnerabilityCounter > 0)
@@ -280,13 +290,8 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Bullet")
         {
-            if (invulnerabilityCounter <= 0)
-            {
-                health -= 1;
-                invulnerabilityCounter = timeInvulnerability;
-            }
+            Damage();
         }
-        healthText.text = health.ToString();
     }
 
     private void OnLevelWasLoaded(int level)
