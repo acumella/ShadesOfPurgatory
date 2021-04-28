@@ -12,7 +12,7 @@ public class EnemyAI : MonoBehaviour
     private Animator anim;
     private Transform target;
 
-    private readonly int IDLE = 0, RUNNING = 1, JUMPING = 2, FIRING = 3, ATTACKING = 4;
+    private readonly int IDLE = 0, RUNNING = 1, JUMPING = 2, FIRING = 3, ATTACKING = 4, DEATH = 9;
 
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask playerLayer;
@@ -45,7 +45,10 @@ public class EnemyAI : MonoBehaviour
 
     private bool isAttacking = false;
     private float lastAttackTime;
-    
+
+    private bool isDead = false;
+
+
     public void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
@@ -59,7 +62,7 @@ public class EnemyAI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (TargetInDistance() && followEnabled)
+        if (TargetInDistance() && followEnabled && !isDead)
         {
             PathFollow();
         }
@@ -206,7 +209,8 @@ public class EnemyAI : MonoBehaviour
 
     private void AnimState()
     {
-        if (isAttacking) SetState(ATTACKING);
+        if (isDead) SetState(DEATH);
+        else if (isAttacking) SetState(ATTACKING);
         else if (!isGrounded) SetState(JUMPING);
         else if (Vector3.Distance(transform.position, target.transform.position) <= shootingRange && lineOfSight() && canShoot) SetState(FIRING);
         else if (rb.velocity.magnitude > 0.5) SetState(RUNNING);
@@ -233,6 +237,16 @@ public class EnemyAI : MonoBehaviour
         }
 
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
+    }
+
+    public void Die()
+    {
+        isDead = true;
+    }
+
+    private void Kill()
+    {
+        Destroy(gameObject);
     }
 
 }

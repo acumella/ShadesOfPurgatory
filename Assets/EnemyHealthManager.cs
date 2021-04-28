@@ -21,7 +21,7 @@ public class EnemyHealthManager : MonoBehaviour
     {
         if(currentHP <= 0)
         {
-            Destroy(gameObject);
+            gameObject.GetComponent<EnemyAI>().Die();
         }
     }
 
