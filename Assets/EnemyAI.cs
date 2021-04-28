@@ -59,7 +59,7 @@ public class EnemyAI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (TargetInDistance() && followEnabled && !isAttacking)
+        if (TargetInDistance() && followEnabled)
         {
             PathFollow();
         }
@@ -102,10 +102,16 @@ public class EnemyAI : MonoBehaviour
             }
         }
 
+        if (Time.time > lastAttackTime + attackDelay)
+        {
+            isAttacking = false;
+        }
+
         // Attack
         Vector2 posForward = transform.position + transform.forward;
         float distanceToPlayer = Vector3.Distance(transform.position, target.position);
         float distance = Vector3.Distance(transform.position, target.transform.position);
+
         if (distanceToPlayer < attackRange)
         {
             Collider2D hit = Physics2D.OverlapCircle(posForward, attackRange, playerLayer);
@@ -214,7 +220,7 @@ public class EnemyAI : MonoBehaviour
 
     private IEnumerator Attack()
     {
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds((anim.GetCurrentAnimatorStateInfo(0).length + anim.GetCurrentAnimatorStateInfo(0).normalizedTime)/2);
 
         Vector2 posForward = transform.position + transform.forward;
         Collider2D hit = Physics2D.OverlapCircle(posForward, attackRange, playerLayer);
@@ -226,12 +232,7 @@ public class EnemyAI : MonoBehaviour
             }
         }
 
-        yield return new WaitForSeconds(0.3f);
-
-        if (Time.time > lastAttackTime + attackDelay)
-        {
-            isAttacking = false;
-        }
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
     }
 
 }
