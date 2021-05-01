@@ -26,12 +26,13 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float attackRange;
     [SerializeField] private float attackDelay;
 
-
     [SerializeField] private bool canShoot = false;
     [SerializeField] private float shootingRange;
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject muzzle;
     [SerializeField] private float startTimeShots;
+
+    [SerializeField] private GameObject slash;
 
     private float timeShots;
 
@@ -247,6 +248,11 @@ public class EnemyAI : MonoBehaviour
     private void Kill()
     {
         Destroy(gameObject);
+    }
+
+    public void Slash()
+    {
+        Instantiate(slash, transform.position, Quaternion.identity);;
     }
 
 }
