@@ -275,6 +275,7 @@ public class PlayerController : MonoBehaviour
             health -= 1;
             healthText.text = health.ToString();
             invulnerabilityCounter = timeInvulnerability;
+            SoundManager.PlaySound("playerDamaged");
         }
     }
 

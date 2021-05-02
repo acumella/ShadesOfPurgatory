@@ -252,7 +252,8 @@ public class EnemyAI : MonoBehaviour
 
     public void Slash()
     {
-        Instantiate(slash, transform.position, Quaternion.identity);;
+        Instantiate(slash, transform.position, Quaternion.identity);
+        SoundManager.PlaySound("playerSlash");
     }
 
 }
