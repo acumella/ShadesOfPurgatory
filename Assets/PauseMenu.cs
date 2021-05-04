@@ -7,11 +7,12 @@ public class PauseMenu : MonoBehaviour
 {
 
     public static bool isPaused = false;
+    public bool onMainMenu = false;
     public GameObject pauseMenuUI;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) {
+        if (Input.GetKeyDown(KeyCode.Escape) && !onMainMenu) {
             if (isPaused) Resume();
             else Pause();
         }    
@@ -33,12 +34,27 @@ public class PauseMenu : MonoBehaviour
 
     public void ReturnToMenu()
     {
-        SceneManager.LoadScene("MainMenu");
         Resume();
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void QuitGame()
     {
         Application.Quit();
     }
+
+    private void OnLevelWasLoaded(int level)
+    {
+        if (level != 0)
+        {
+            onMainMenu = false;
+            Cursor.visible = false;
+        }
+        else
+        {
+            onMainMenu = true;
+            Cursor.visible = true;
+        }
+    }
+
 }

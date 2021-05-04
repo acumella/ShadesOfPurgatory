@@ -21,7 +21,7 @@ public class SoundManager : MonoBehaviour
         switch (clip)
         {
             case "playerSlash":
-                source.PlayOneShot(playerSlash);
+                //source.PlayOneShot(playerSlash);
                 break;
             case "playerDamaged":
                 source.PlayOneShot(playerDamaged);
