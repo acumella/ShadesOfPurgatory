@@ -215,7 +215,7 @@ public class PlayerController : MonoBehaviour
                         //Debug.Log(hit.tag);
                         cursor.ChangeCursorToDefault();
                         float damage = (distance * 0.3f) / 0.5f;
-                        if (damage > 1) damage = 1;
+                        if (damage > 1.25) damage = 1.25f;
                         hit.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(damage);
                         timeHitCounter = timeHit;
                     }

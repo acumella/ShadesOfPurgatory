@@ -26,7 +26,10 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float attackRange;
     [SerializeField] private float attackDelay;
 
+    [SerializeField] private bool canAttack = false;
+    [SerializeField] private bool canFly = false;
     [SerializeField] private bool canShoot = false;
+
     [SerializeField] private float shootingRange;
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject muzzle;
@@ -98,7 +101,7 @@ public class EnemyAI : MonoBehaviour
         Vector2 force = direction * speed * Time.deltaTime;
 
         // Jump
-        if (jumpEnabled && isGrounded)
+        if (jumpEnabled && isGrounded && !canFly)
         {
             if (direction.y > jumpNodeHeightRequirement)
             {
@@ -116,7 +119,7 @@ public class EnemyAI : MonoBehaviour
         float distanceToPlayer = Vector3.Distance(transform.position, target.position);
         float distance = Vector3.Distance(transform.position, target.transform.position);
 
-        if (distanceToPlayer < attackRange)
+        if (distanceToPlayer < attackRange && canAttack)
         {
             Collider2D hit = Physics2D.OverlapCircle(posForward, attackRange, playerLayer);
             if (Time.time > lastAttackTime + attackDelay && hit!=null)

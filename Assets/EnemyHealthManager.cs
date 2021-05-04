@@ -29,7 +29,7 @@ public class EnemyHealthManager : MonoBehaviour
     {
         currentHP -= damage;
         gameObject.GetComponent<EnemyAI>().Slash();
-        //Debug.Log(currentHP);
+        Debug.Log(currentHP);
     }
 
 }
