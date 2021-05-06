@@ -57,7 +57,6 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        DontDestroyOnLoad(transform.gameObject);
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         capsule = GetComponent<CapsuleCollider2D>();
@@ -279,6 +278,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void Reset()
+    {
+        health = 5;
+        healthText.text = health.ToString();
+    }
+
     private void ResetInvulnerability()
     {
         if (invulnerabilityCounter > 0)
@@ -297,12 +302,10 @@ public class PlayerController : MonoBehaviour
 
     private void OnLevelWasLoaded(int level)
     {
-        if (level != 0)
+        if (level != 0 && gameObject.name == "oldspook")
         {
             transform.position = GameObject.Find("StartPos" + previousLevel.ToString()).transform.position;
             previousLevel = level;
-            players = GameObject.FindGameObjectsWithTag("Player");
-            if (players.Length > 1) Destroy(players[1]);
         }
         else
         {

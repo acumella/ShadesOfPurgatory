@@ -17,26 +17,56 @@ AnimationClip:
   m_PositionCurves: []
   m_ScaleCurves: []
   m_FloatCurves: []
-  m_PPtrCurves: []
-  m_SampleRate: 60
+  m_PPtrCurves:
+  - curve:
+    - time: 0
+      value: {fileID: 21300000, guid: f2c0984b74dcc2d4b8c776be618c66de, type: 3}
+    - time: 0.083333336
+      value: {fileID: 21300000, guid: 2a20da09a9ff0ae4f97206cea3a76a83, type: 3}
+    - time: 0.16666667
+      value: {fileID: 21300000, guid: 9fcb2d66920a5194ca7a46aa8e3bf9ac, type: 3}
+    - time: 0.25
+      value: {fileID: 21300000, guid: 10c7cdd963bd0404aa64e5a72497f9cb, type: 3}
+    - time: 0.33333334
+      value: {fileID: 21300000, guid: c363641e03c4fba4e8f8cce8a451886b, type: 3}
+    - time: 0.41666666
+      value: {fileID: 21300000, guid: 0e9e0f94a6a5caf40bbb0436b55edfa3, type: 3}
+    attribute: m_Sprite
+    path: 
+    classID: 212
+    script: {fileID: 0}
+  m_SampleRate: 12
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   m_ClipBindingConstant:
-    genericBindings: []
-    pptrCurveMapping: []
+    genericBindings:
+    - serializedVersion: 2
+      path: 0
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+    pptrCurveMapping:
+    - {fileID: 21300000, guid: f2c0984b74dcc2d4b8c776be618c66de, type: 3}
+    - {fileID: 21300000, guid: 2a20da09a9ff0ae4f97206cea3a76a83, type: 3}
+    - {fileID: 21300000, guid: 9fcb2d66920a5194ca7a46aa8e3bf9ac, type: 3}
+    - {fileID: 21300000, guid: 10c7cdd963bd0404aa64e5a72497f9cb, type: 3}
+    - {fileID: 21300000, guid: c363641e03c4fba4e8f8cce8a451886b, type: 3}
+    - {fileID: 21300000, guid: 0e9e0f94a6a5caf40bbb0436b55edfa3, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1
+    m_StopTime: 0.5
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
     m_HasAdditiveReferencePose: 0
-    m_LoopTime: 1
+    m_LoopTime: 0
     m_LoopBlend: 0
     m_LoopBlendOrientation: 0
     m_LoopBlendPositionY: 0
@@ -50,4 +80,11 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.41666666
+    functionName: Kill
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

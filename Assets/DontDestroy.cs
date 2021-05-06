@@ -5,6 +5,7 @@ using UnityEngine;
 public class DontDestroy : MonoBehaviour
 {
     private GameObject gameobject;
+    private int previousLevel = 1;
 
     void Awake()
     {
