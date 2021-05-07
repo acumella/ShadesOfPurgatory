@@ -69,7 +69,6 @@ public class PlayerController : MonoBehaviour
     {
         if (!PauseMenu.isPaused)
         {
-            CheckGround();
             MouseHit();
         }   
     }
@@ -77,6 +76,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        CheckGround();
         Jump();
         Move();
         Turn();
@@ -183,7 +183,7 @@ public class PlayerController : MonoBehaviour
 
     private void CheckGround()
     {
-        RaycastHit2D raycastHit = Physics2D.Raycast(capsule.bounds.center, Vector2.down, capsule.bounds.extents.y + .01f, groundLayer);
+        RaycastHit2D raycastHit = Physics2D.Raycast(capsule.bounds.center, Vector2.down, capsule.bounds.extents.y + .15f, groundLayer);
         isGrounded = raycastHit.collider != null;
         if (isGrounded)
         {
