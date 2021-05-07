@@ -39,5 +39,11 @@ public class ShowInstruction : MonoBehaviour
             showing = false;
         }
     }
-    
+
+    private void OnDestroy()
+    {
+        for (int i = 0; i < 3; i++){
+            shown[i] = false;
+        }
+    }
 }
