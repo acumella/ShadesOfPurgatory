@@ -10,6 +10,7 @@ TagManager:
   - StartPosition
   - Boundaries
   - Cinemachine
+  - Instruction
   layers:
   - Default
   - TransparentFX

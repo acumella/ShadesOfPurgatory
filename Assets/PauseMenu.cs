@@ -7,12 +7,12 @@ public class PauseMenu : MonoBehaviour
 {
 
     public static bool isPaused = false;
-    public bool onMainMenu = false;
+    public bool showingInstruction = false;
     public GameObject pauseMenuUI;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !onMainMenu) {
+        if (Input.GetKeyDown(KeyCode.Escape) && !showingInstruction) {
             if (isPaused) Resume();
             else Pause();
         }    
@@ -35,26 +35,20 @@ public class PauseMenu : MonoBehaviour
     public void ReturnToMenu()
     {
         Resume();
+        Cursor.visible = true;
         SceneManager.LoadScene("MainMenu");
+        Destroy(GameObject.Find("oldspook"));
+        Destroy(GameObject.Find("oldCanvas"));
+        Destroy(GameObject.Find("oldMain Camera"));
+        Destroy(GameObject.Find("oldCursor"));
+        Destroy(GameObject.Find("oldEventSystem"));
+        Destroy(GameObject.Find("oldAudioManager"));
+
     }
 
     public void QuitGame()
     {
         Application.Quit();
-    }
-
-    private void OnLevelWasLoaded(int level)
-    {
-        if (level != 0)
-        {
-            onMainMenu = false;
-            Cursor.visible = false;
-        }
-        else
-        {
-            onMainMenu = true;
-            Cursor.visible = true;
-        }
     }
 
 }

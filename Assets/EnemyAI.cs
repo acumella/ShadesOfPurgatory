@@ -230,6 +230,8 @@ public class EnemyAI : MonoBehaviour
     {
         yield return new WaitForSeconds((anim.GetCurrentAnimatorStateInfo(0).length + anim.GetCurrentAnimatorStateInfo(0).normalizedTime)/2);
 
+        SoundManager.PlaySound("enemyAttack");
+
         Vector2 posForward = transform.position + transform.forward;
         Collider2D hit = Physics2D.OverlapCircle(posForward, attackRange, playerLayer);
         if (hit != null)

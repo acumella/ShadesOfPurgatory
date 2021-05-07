@@ -21,7 +21,7 @@ public class ShowInstruction : MonoBehaviour
 
             Time.timeScale = 0;
 
-            GameObject.Find("oldCanvas").GetComponent<PauseMenu>().onMainMenu = true;
+            GameObject.Find("oldCanvas").GetComponent<PauseMenu>().showingInstruction = true;
 
             showing = true;
         }
@@ -34,7 +34,7 @@ public class ShowInstruction : MonoBehaviour
             Time.timeScale = 1;
             instructions.SetActive(false);
             instructionToShow.SetActive(false);
-            GameObject.Find("oldCanvas").GetComponent<PauseMenu>().onMainMenu = false;
+            GameObject.Find("oldCanvas").GetComponent<PauseMenu>().showingInstruction = false;
             shown[numInstruction-1] = true;
             showing = false;
         }

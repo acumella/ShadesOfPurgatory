@@ -15929,7 +15929,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ade168fb22abbf418af2f89ddb6113e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onMainMenu: 0
+  showingInstruction: 0
   pauseMenuUI: {fileID: 859314539}
 --- !u!1 &454699849
 GameObject:
@@ -16856,7 +16856,7 @@ GameObject:
   - component: {fileID: 1077060799}
   m_Layer: 0
   m_Name: ShowInstruction1
-  m_TagString: Untagged
+  m_TagString: Instruction
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17093,7 +17093,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1111901053}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00006866455, y: -0.049212456, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 397604412}
@@ -17350,7 +17350,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.22
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -18240,7 +18240,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1484562083}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -66.01993, y: -6.2807875, z: -100}
+  m_LocalPosition: {x: -66.13, y: -6.2, z: -100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1111901054}
@@ -23345,7 +23345,7 @@ GameObject:
   - component: {fileID: 1975102103}
   - component: {fileID: 1975102102}
   m_Layer: 0
-  m_Name: Boundary0
+  m_Name: Boundary
   m_TagString: Boundaries
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23776,12 +23776,12 @@ PrefabInstance:
     - target: {fileID: 4882958595047016088, guid: 8688fbf70c19eb1489e35d35374fd8ab,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -66.02
+      value: -66.13
       objectReference: {fileID: 0}
     - target: {fileID: 4882958595047016088, guid: 8688fbf70c19eb1489e35d35374fd8ab,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.33
+      value: -6.2
       objectReference: {fileID: 0}
     - target: {fileID: 4882958595047016088, guid: 8688fbf70c19eb1489e35d35374fd8ab,
         type: 3}
@@ -23851,7 +23851,7 @@ PrefabInstance:
     - target: {fileID: 4882958595047016095, guid: 8688fbf70c19eb1489e35d35374fd8ab,
         type: 3}
       propertyPath: m_CollisionDetection
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8688fbf70c19eb1489e35d35374fd8ab, type: 3}

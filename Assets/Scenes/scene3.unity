@@ -10389,7 +10389,7 @@ GameObject:
   - component: {fileID: 1609199556}
   m_Layer: 0
   m_Name: ShowInstruction3
-  m_TagString: Untagged
+  m_TagString: Instruction
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11580,6 +11580,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1492194188930761888, guid: e0eaa97dba8fdf3488b00a2ae968dee9,
+        type: 3}
+      propertyPath: jumpNodeHeightRequirement
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 3672053363978130775, guid: e0eaa97dba8fdf3488b00a2ae968dee9,
         type: 3}
       propertyPath: m_RootOrder

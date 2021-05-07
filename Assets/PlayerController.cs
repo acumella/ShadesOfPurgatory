@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     private float invulnerabilityCounter;
 
     private GameObject[] players;
-    private int previousLevel = 1;
+    private int previousLevel = 0;
 
     private void Awake()
     {
@@ -302,16 +302,16 @@ public class PlayerController : MonoBehaviour
 
     private void OnLevelWasLoaded(int level)
     {
-        if (level != 0 && gameObject.name == "oldspook")
+        if (previousLevel != 0 && gameObject.name == "oldspook")
         {
             transform.position = GameObject.Find("StartPos" + previousLevel.ToString()).transform.position;
-            previousLevel = level;
         }
         else
         {
             health = 5;
             healthText.text = health.ToString();
         }
+        previousLevel = level;
     }
 
 }

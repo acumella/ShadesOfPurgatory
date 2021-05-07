@@ -13,6 +13,8 @@ public class BulletController : MonoBehaviour
 
     void Start()
     {
+        SoundManager.PlaySound("bulletRelease");
+
         GetComponent<Animator>().SetBool("destroying", false);
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -34,7 +36,10 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag != "Enemy" && collision.tag != "Boundaries") DestroyBullet();
+        if (collision.tag != "Enemy" && collision.tag != "Boundaries" && collision.tag != "StartPosition" && collision.tag != "Instruction")
+        {
+            DestroyBullet();
+        }
     }
 
     public void DestroyBullet()
@@ -42,5 +47,12 @@ public class BulletController : MonoBehaviour
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         GetComponent<Animator>().SetBool("destroying", true);
         Destroy(gameObject,0.25f);
+        
     }
+
+    private void OnDestroy()
+    {
+        SoundManager.PlaySound("bulletImpact");
+    }
+
 }
