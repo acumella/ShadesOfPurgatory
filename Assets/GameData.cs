@@ -17,6 +17,8 @@ public class GameData
     public ArrayList enemiesDestroyedScene4 = new ArrayList();
     public ArrayList enemiesDestroyedScene5 = new ArrayList();
 
+    public ArrayList instructionsShown = new ArrayList();
+
     [System.NonSerialized] public GameObject spook, canvas, mainCamera, cursor, audioManager;
 
     public void LevelLoaded(int level)
@@ -31,13 +33,17 @@ public class GameData
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().SetHealth(playerHealth);
             GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>().position = GameObject.Find("StartPos" + previousLevel.ToString()).transform.position;
 
-            switch (level)
-            {
+            switch (level) { 
+                case 1:
+                    if (instructionsShown.Count >= 1) GameObject.Destroy(GameObject.Find((string)instructionsShown[0]));
+                    break;
                 case 2:
                     for (int i = 0; i < enemiesDestroyedScene2.Count; i++) GameObject.Destroy(GameObject.Find((string)enemiesDestroyedScene2[i]));
+                    if(instructionsShown.Count >=2) GameObject.Destroy(GameObject.Find((string)instructionsShown[1]));
                     break;
                 case 3:
                     for (int i = 0; i < enemiesDestroyedScene3.Count; i++) GameObject.Destroy(GameObject.Find((string)enemiesDestroyedScene3[i]));
+                    if (instructionsShown.Count >= 3) GameObject.Destroy(GameObject.Find((string)instructionsShown[2]));
                     break;
                 case 4:
                     for (int i = 0; i < enemiesDestroyedScene4.Count; i++) GameObject.Destroy(GameObject.Find((string)enemiesDestroyedScene4[i]));

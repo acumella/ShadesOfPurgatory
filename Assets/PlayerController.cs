@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private CapsuleCollider2D capsule;
     public static PlayerController current;
 
-    private readonly int IDLE = 0, RUNNING = 1, JUMPING = 2;
+    private readonly int IDLE = 0, RUNNING = 1, JUMPING = 2, DEATH = 9;
 
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private LayerMask bulletLayer;
@@ -43,6 +43,8 @@ public class PlayerController : MonoBehaviour
     private GameObject[] players;
     private int previousLevel = 0;
 
+    public bool isDying = false;
+
     private void Awake()
     {
         if (current == null)
@@ -67,7 +69,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!PauseMenu.isPaused)
+        if (!PauseMenu.isPaused && !isDying)
         {
             MouseHit();
         }   
@@ -77,9 +79,12 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         CheckGround();
-        Jump();
-        Move();
-        Turn();
+        if (!isDying)
+        {
+            Jump();
+            Move();
+            Turn();
+        }
         AnimState();
         ResetInvulnerability();
     }
@@ -171,7 +176,8 @@ public class PlayerController : MonoBehaviour
 
     private void AnimState()
     {
-        if (!isGrounded) SetState(JUMPING);
+        if (isDying) SetState(DEATH);
+        else if (!isGrounded) SetState(JUMPING);
         else if (rb.velocity.magnitude > 0) SetState(RUNNING);
         else SetState(IDLE);
     }
@@ -269,7 +275,7 @@ public class PlayerController : MonoBehaviour
 
     public void Damage()
     {
-        if (invulnerabilityCounter <= 0)
+        if (invulnerabilityCounter <= 0 && !isDying)
         {
             health -= 1;
             healthText.text = health.ToString();
@@ -277,6 +283,11 @@ public class PlayerController : MonoBehaviour
             GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.playerHealth = health;
             GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.Save();
             SoundManager.PlaySound("playerDamaged");
+
+            if(health <= 0)
+            {
+                Die();
+            }
         }
     }
 
@@ -303,6 +314,12 @@ public class PlayerController : MonoBehaviour
         healthText.text = health.ToString();
     }
 
+    private void Die()
+    {
+        isDying = true;
+        rb.velocity = new Vector2(0, rb.velocity.y);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Bullet")
@@ -311,15 +328,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /*
-    private void OnLevelWasLoaded(int level)
-    {
-        if (gameObject.name == "oldspook" && level != 0) {
-            GameData gd = GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd;
-            Debug.Log(gd.previousLevel.ToString());
-            transform.position = GameObject.Find("StartPos" + gd.previousLevel.ToString()).transform.position;
-        }
-    }
-    */
+   
 
 }

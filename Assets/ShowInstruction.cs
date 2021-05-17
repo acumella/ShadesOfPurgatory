@@ -24,6 +24,8 @@ public class ShowInstruction : MonoBehaviour
             GameObject.Find("oldCanvas").GetComponent<PauseMenu>().showingInstruction = true;
 
             showing = true;
+
+            GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.instructionsShown.Add(gameObject.name);
         }
     }
 
