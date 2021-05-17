@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+using UnityEngine.SceneManagement;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class EnemyAI : MonoBehaviour
     private CapsuleCollider2D capsule;
     private Animator anim;
     private Transform target;
+    private GameData gd;
 
     private readonly int IDLE = 0, RUNNING = 1, JUMPING = 2, FIRING = 3, ATTACKING = 4, DEATH = 9;
 
@@ -60,6 +62,7 @@ public class EnemyAI : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         capsule = GetComponent<CapsuleCollider2D>();
         anim = GetComponent<Animator>();
+        gd = GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd;
 
         InvokeRepeating("UpdatePath", 0f, pathUpdateSeconds);
     }
@@ -252,6 +255,8 @@ public class EnemyAI : MonoBehaviour
 
     private void Kill()
     {
+        gd.addEnemyDestroyed(SceneManager.GetActiveScene().buildIndex, this.gameObject);
+        gd.Save();
         Destroy(gameObject);
     }
 

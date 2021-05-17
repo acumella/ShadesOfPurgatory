@@ -15,7 +15,6 @@ public class CursorManager : MonoBehaviour
     void Awake()
     {
         Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = false;
     }
 
     void Start()

@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 mouseLastPos;
     private float timeHitCounter;
 
-    private int health;
+    public int health;
     private float invulnerabilityCounter;
 
     private GameObject[] players;
@@ -274,6 +274,8 @@ public class PlayerController : MonoBehaviour
             health -= 1;
             healthText.text = health.ToString();
             invulnerabilityCounter = timeInvulnerability;
+            GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.playerHealth = health;
+            GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.Save();
             SoundManager.PlaySound("playerDamaged");
         }
     }
@@ -282,6 +284,9 @@ public class PlayerController : MonoBehaviour
     {
         health = 5;
         healthText.text = health.ToString();
+        GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.playerHealth = health;
+        GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.Save();
+
     }
 
     private void ResetInvulnerability()
@@ -292,6 +297,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void SetHealth(int hp)
+    {
+        health = hp;
+        healthText.text = health.ToString();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Bullet")
@@ -300,18 +311,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /*
     private void OnLevelWasLoaded(int level)
     {
-        if (previousLevel != 0 && gameObject.name == "oldspook")
-        {
-            transform.position = GameObject.Find("StartPos" + previousLevel.ToString()).transform.position;
+        if (gameObject.name == "oldspook" && level != 0) {
+            GameData gd = GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd;
+            Debug.Log(gd.previousLevel.ToString());
+            transform.position = GameObject.Find("StartPos" + gd.previousLevel.ToString()).transform.position;
         }
-        else
-        {
-            health = 5;
-            healthText.text = health.ToString();
-        }
-        previousLevel = level;
     }
+    */
 
 }

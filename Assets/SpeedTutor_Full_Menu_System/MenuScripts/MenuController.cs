@@ -248,6 +248,20 @@ namespace SpeedTutorMainMenuSystem
         {
             if (ButtonType == "Yes")
             {
+                /*
+                GameObject go = GameObject.Find("oldspook");
+                if (go != null) go.SetActive(true);
+                go = GameObject.Find("oldCanvas");
+                if (go != null) go.SetActive(true);
+                go = GameObject.Find("oldMain Camera");
+                if (go != null) go.SetActive(true);
+                go = GameObject.Find("oldCursor");
+                if (go != null) go.SetActive(true);
+                go = GameObject.Find("oldAudioManager");
+                if (go != null) go.SetActive(true);
+                */
+                GameData gd = GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd;
+                gd.NewGame();
                 SceneManager.LoadScene(_newGameButtonLevel);
             }
 
@@ -259,8 +273,13 @@ namespace SpeedTutorMainMenuSystem
 
         public void ClickLoadGameDialog(string ButtonType)
         {
+            
             if (ButtonType == "Yes")
             {
+                GameData gd = GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd;
+                gd.Load();
+                SceneManager.LoadScene(gd.level);
+                /*
                 if (PlayerPrefs.HasKey("SavedLevel"))
                 {
                     Debug.Log("I WANT TO LOAD THE SAVED GAME");
@@ -276,12 +295,32 @@ namespace SpeedTutorMainMenuSystem
                     loadGameDialog.SetActive(false);
                     noSaveDialog.SetActive(true);
                 }
+                */
             }
 
             if (ButtonType == "No")
             {
                 GoBackToMainMenu();
             }
+            
+
+
+                
+
+            /*
+            GameObject go = GameObject.Find("oldspook");
+            if (go != null) go.SetActive(true);
+            go = GameObject.Find("oldCanvas");
+            if (go != null) go.SetActive(true);
+            go = GameObject.Find("oldMain Camera");
+            if (go != null) go.SetActive(true);
+            go = GameObject.Find("oldCursor");
+            if (go != null) go.SetActive(true);
+            go = GameObject.Find("oldAudioManager");
+            if (go != null) go.SetActive(true);
+            */
+
+            
         }
         #endregion
 

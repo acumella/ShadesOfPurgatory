@@ -11,6 +11,7 @@ TagManager:
   - Boundaries
   - Cinemachine
   - Instruction
+  - GameData
   layers:
   - Default
   - TransparentFX

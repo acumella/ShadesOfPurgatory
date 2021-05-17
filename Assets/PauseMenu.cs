@@ -9,6 +9,12 @@ public class PauseMenu : MonoBehaviour
     public static bool isPaused = false;
     public bool showingInstruction = false;
     public GameObject pauseMenuUI;
+    private GameData gd;
+
+    private void Start()
+    {
+        gd = GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd;
+    }
 
     void Update()
     {
@@ -37,12 +43,13 @@ public class PauseMenu : MonoBehaviour
         Resume();
         Cursor.visible = true;
         SceneManager.LoadScene("MainMenu");
-        Destroy(GameObject.Find("oldspook"));
-        Destroy(GameObject.Find("oldCanvas"));
-        Destroy(GameObject.Find("oldMain Camera"));
-        Destroy(GameObject.Find("oldCursor"));
-        Destroy(GameObject.Find("oldEventSystem"));
-        Destroy(GameObject.Find("oldAudioManager"));
+
+        //GameObject.Find("oldspook").SetActive(false);
+        //GameObject.Find("oldCanvas").SetActive(false);
+        //GameObject.Find("oldMain Camera").SetActive(false);
+        //GameObject.Find("oldCursor").SetActive(false);
+        //GameObject.Find("oldEventSystem").SetActive(false);
+        //GameObject.Find("oldAudioManager").SetActive(false);
 
     }
 
