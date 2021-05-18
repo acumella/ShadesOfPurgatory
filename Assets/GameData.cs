@@ -19,6 +19,8 @@ public class GameData
 
     public ArrayList instructionsShown = new ArrayList();
 
+    public int respawnLevel = 1;
+
     [System.NonSerialized] public GameObject spook, canvas, mainCamera, cursor, audioManager;
 
     public void LevelLoaded(int level)
@@ -40,6 +42,7 @@ public class GameData
                 case 2:
                     for (int i = 0; i < enemiesDestroyedScene2.Count; i++) GameObject.Destroy(GameObject.Find((string)enemiesDestroyedScene2[i]));
                     if(instructionsShown.Count >=2) GameObject.Destroy(GameObject.Find((string)instructionsShown[1]));
+                    respawnLevel = 2;
                     break;
                 case 3:
                     for (int i = 0; i < enemiesDestroyedScene3.Count; i++) GameObject.Destroy(GameObject.Find((string)enemiesDestroyedScene3[i]));
@@ -47,6 +50,7 @@ public class GameData
                     break;
                 case 4:
                     for (int i = 0; i < enemiesDestroyedScene4.Count; i++) GameObject.Destroy(GameObject.Find((string)enemiesDestroyedScene4[i]));
+                    respawnLevel = 4;
                     break;
                 case 5:
                     for (int i = 0; i < enemiesDestroyedScene5.Count; i++) GameObject.Destroy(GameObject.Find((string)enemiesDestroyedScene5[i]));

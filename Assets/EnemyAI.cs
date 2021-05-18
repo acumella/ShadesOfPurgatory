@@ -251,12 +251,12 @@ public class EnemyAI : MonoBehaviour
     public void Die()
     {
         isDead = true;
+        gd.addEnemyDestroyed(SceneManager.GetActiveScene().buildIndex, this.gameObject);
+        gd.Save();
     }
 
     private void Kill()
     {
-        gd.addEnemyDestroyed(SceneManager.GetActiveScene().buildIndex, this.gameObject);
-        gd.Save();
         Destroy(gameObject);
     }
 

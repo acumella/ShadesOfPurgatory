@@ -295,6 +295,7 @@ public class PlayerController : MonoBehaviour
     {
         health = 5;
         healthText.text = health.ToString();
+        isDying = false;
         GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.playerHealth = health;
         GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.Save();
 
@@ -320,6 +321,11 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(0, rb.velocity.y);
     }
 
+    private void Respawn()
+    {
+        GameMaster.Respawn();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Bullet")
@@ -327,7 +333,5 @@ public class PlayerController : MonoBehaviour
             Damage();
         }
     }
-
-   
 
 }
