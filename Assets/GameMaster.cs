@@ -20,4 +20,14 @@ public static class GameMaster
         GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.enemiesDestroyedScene4 = new ArrayList();
         GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.enemiesDestroyedScene5 = new ArrayList();
     }
+
+    public static void LoadScene(int levelToLoad)
+    {
+        SceneManager.LoadScene(levelToLoad);
+    }
+
+    public static void LoadScene(string levelToLoad)
+    {
+        SceneManager.LoadScene(levelToLoad);
+    }
 }

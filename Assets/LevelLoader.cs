@@ -2,10 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
 {
+
+    public Animator transition;
 
     public int intLevelToLoad;
     public string stringLevelToLoad;
@@ -18,19 +19,21 @@ public class LevelLoader : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
-            LoadScene();
+            StartCoroutine(LoadScene());
         }
     }
 
-    private void LoadScene()
+    IEnumerator LoadScene()
     {
+        transition.SetTrigger("start");
+        yield return new WaitForSeconds(0.5f);
         if (useIntegerToLoadLevel)
         {
-            SceneManager.LoadScene(intLevelToLoad);
+            GameMaster.LoadScene(intLevelToLoad);
         }
         else
         {
-            SceneManager.LoadScene(stringLevelToLoad);
+            GameMaster.LoadScene(stringLevelToLoad);
         }
     }
 

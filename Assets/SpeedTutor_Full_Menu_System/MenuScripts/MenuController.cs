@@ -262,7 +262,7 @@ namespace SpeedTutorMainMenuSystem
                 */
                 GameData gd = GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd;
                 gd.NewGame();
-                SceneManager.LoadScene(_newGameButtonLevel);
+                GameMaster.LoadScene(_newGameButtonLevel);
             }
 
             if (ButtonType == "No")
@@ -278,7 +278,7 @@ namespace SpeedTutorMainMenuSystem
             {
                 GameData gd = GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd;
                 gd.Load();
-                SceneManager.LoadScene(gd.level);
+                GameMaster.LoadScene(gd.level);
                 /*
                 if (PlayerPrefs.HasKey("SavedLevel"))
                 {

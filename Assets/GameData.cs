@@ -108,12 +108,17 @@ public class GameData
     {
         GameData data = SaveSystem.Load();
 
+        previousLevel = 0;
+
         level = data.level;
         playerHealth = data.playerHealth;
+
         enemiesDestroyedScene2 = data.enemiesDestroyedScene2;
         enemiesDestroyedScene3 = data.enemiesDestroyedScene3;
         enemiesDestroyedScene4 = data.enemiesDestroyedScene4;
         enemiesDestroyedScene5 = data.enemiesDestroyedScene5;
+
+        instructionsShown = data.instructionsShown;
     }
 
     public void NewGame()
@@ -127,6 +132,8 @@ public class GameData
         enemiesDestroyedScene3 = new ArrayList();
         enemiesDestroyedScene4 = new ArrayList();
         enemiesDestroyedScene5 = new ArrayList();
+
+        instructionsShown = new ArrayList();
     }
 
     private void ActivateAllObjects()
