@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private LayerMask bulletLayer;
     [SerializeField] private CursorManager cursor;
+    [SerializeField] private HealthBar healthBar;
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private float timeJump;
@@ -63,7 +64,7 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         capsule = GetComponent<CapsuleCollider2D>();
         health = 5;
-        healthText.text = health.ToString();
+        healthBar.SetHealth(health);
         mouseLastPos = Mouse.current.position.ReadValue();
     }
 
@@ -278,7 +279,7 @@ public class PlayerController : MonoBehaviour
         if (invulnerabilityCounter <= 0 && !isDying)
         {
             health -= 1;
-            healthText.text = health.ToString();
+            healthBar.SetHealth(health);
             invulnerabilityCounter = timeInvulnerability;
             GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.playerHealth = health;
             GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.Save();
@@ -294,7 +295,7 @@ public class PlayerController : MonoBehaviour
     public void Reset()
     {
         health = 5;
-        healthText.text = health.ToString();
+        healthBar.SetHealth(health);
         isDying = false;
         GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.playerHealth = health;
         GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.Save();
@@ -312,7 +313,7 @@ public class PlayerController : MonoBehaviour
     public void SetHealth(int hp)
     {
         health = hp;
-        healthText.text = health.ToString();
+        healthBar.SetHealth(health);
     }
 
     private void Die()
