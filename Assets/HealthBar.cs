@@ -17,5 +17,8 @@ public class HealthBar : MonoBehaviour
     public void SetHealth(int health)
     {
         slider.value = health;
+        if (health <= 1) transform.Find("Fill").gameObject.GetComponent<Image>().color = new Color32(185, 18, 27, 255);
+        else if (health <= 3) transform.Find("Fill").gameObject.GetComponent<Image>().color = new Color32(217, 194, 36, 255);
+        else transform.Find("Fill").gameObject.GetComponent<Image>().color = new Color32(87, 159, 26,255);
     }
 }
