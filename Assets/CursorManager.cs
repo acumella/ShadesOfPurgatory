@@ -39,16 +39,19 @@ public class CursorManager : MonoBehaviour
     public void ChangeCursorToDefault()
     {
         ChangeCursor(0);
+        transform.localScale = new Vector3(1f, 1f, 1f);
     }
 
     public void ChangeCursorOnLeftClick()
     {
         ChangeCursor(1);
+        transform.localScale = new Vector3(1f, 1f, 1f);
     }
 
     public void ChangeCursorOnRightClick()
     {
         ChangeCursor(2);
+        transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
     }
 
 

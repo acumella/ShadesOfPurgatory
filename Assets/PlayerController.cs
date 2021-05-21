@@ -24,14 +24,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float timeHit;
     [SerializeField] private float timeInvulnerability;
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private TextMeshProUGUI healthText;
+    [SerializeField] private bool invencible = false;
 
     private float moveSide;
 
     private bool isGrounded;
     
     private float timeJumpCounter;
-    private bool jumpReleased = true;
+    public bool jumpReleased = true;
 
     private bool leftPressed, attacking = false;
     private bool rightPressed, defending = false;
@@ -45,6 +45,8 @@ public class PlayerController : MonoBehaviour
     private int previousLevel = 0;
 
     public bool isDying = false;
+
+    
 
     private void Awake()
     {
@@ -220,7 +222,8 @@ public class PlayerController : MonoBehaviour
                     {
                         //Debug.Log(hit.tag);
                         cursor.ChangeCursorToDefault();
-                        float damage = (distance * 0.3f) / 0.5f;
+                        float damage = (distance * 0.4f) / 0.5f;
+                        Debug.Log(damage);
                         if (damage > 1.25) damage = 1.25f;
                         hit.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(damage);
                         timeHitCounter = timeHit;
@@ -276,7 +279,7 @@ public class PlayerController : MonoBehaviour
 
     public void Damage()
     {
-        if (invulnerabilityCounter <= 0 && !isDying)
+        if (invulnerabilityCounter <= 0 && !isDying && !invencible)
         {
             health -= 1;
             healthBar.SetHealth(health);
@@ -316,7 +319,7 @@ public class PlayerController : MonoBehaviour
         healthBar.SetHealth(health);
     }
 
-    private void Die()
+    public void Die()
     {
         isDying = true;
         rb.velocity = new Vector2(0, rb.velocity.y);

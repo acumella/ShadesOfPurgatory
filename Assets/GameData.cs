@@ -21,6 +21,8 @@ public class GameData
 
     public int respawnLevel = 1;
 
+    public float bright;
+
     [System.NonSerialized] public GameObject spook, canvas, mainCamera, cursor, audioManager;
 
     public void LevelLoaded(int level)
@@ -57,22 +59,29 @@ public class GameData
                     break;
             }
 
+            if(playerHealth == 0)
+            {
+                GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().Die();
+            }
+
             Save();
         }
         else
         {
-            spook = GameObject.Find("oldspook");
             if (spook != null) spook.SetActive(false);
-            canvas = GameObject.Find("oldCanvas");
             if (canvas != null) canvas.SetActive(false);
-            mainCamera = GameObject.Find("oldMain Camera");
             if (mainCamera != null) mainCamera.SetActive(false);
-            cursor = GameObject.Find("oldCursor");
             if (cursor != null) cursor.SetActive(false);
-            audioManager = GameObject.Find("oldAudioManager");
             if (audioManager != null) audioManager.SetActive(false);
 
             Cursor.visible = true;
+        }
+
+        if (previousLevel == 0)
+        {
+            mainCamera.GetComponent<Brightness>().brightness = bright;
+            //Debug.Log("BRIGHTNESS: " + bright);
+            //Debug.Log("VOLUME: " + AudioListener.volume);
         }
 
         previousLevel = level;
@@ -117,6 +126,8 @@ public class GameData
         enemiesDestroyedScene3 = data.enemiesDestroyedScene3;
         enemiesDestroyedScene4 = data.enemiesDestroyedScene4;
         enemiesDestroyedScene5 = data.enemiesDestroyedScene5;
+
+        respawnLevel = data.respawnLevel;
 
         instructionsShown = data.instructionsShown;
     }

@@ -8,12 +8,16 @@ public class PauseMenu : MonoBehaviour
 
     public static bool isPaused = false;
     public bool showingInstruction = false;
+    private GameObject mouse;
     public GameObject pauseMenuUI;
+    private PlayerController player;
     private GameData gd;
 
     private void Start()
     {
         gd = GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd;
+        mouse = GameObject.FindGameObjectWithTag("Mouse");
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
     void Update()
@@ -27,13 +31,18 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
+        mouse.SetActive(true);
         Time.timeScale = 1f;
         isPaused = false;
+        Cursor.visible = false;
     }
 
     private void Pause()
     {
+        player.jumpReleased = true;
+        mouse.SetActive(false);
         pauseMenuUI.SetActive(true);
+        Cursor.visible = true;
         Time.timeScale = 0;
         isPaused = true;
     }

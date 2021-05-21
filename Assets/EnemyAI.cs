@@ -25,7 +25,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float activateDistance = 50f;
     [SerializeField] private float pathUpdateSeconds = 0.5f;
 
-    [SerializeField] private float attackRange;
+    //[SerializeField] private float attackRange;
     [SerializeField] private float attackDelay;
 
     [SerializeField] private bool canAttack = false;
@@ -51,6 +51,7 @@ public class EnemyAI : MonoBehaviour
 
     private bool isAttacking = false;
     private float lastAttackTime;
+    public bool playerInRange = false;
 
     private bool isDead = false;
 
@@ -69,10 +70,24 @@ public class EnemyAI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (TargetInDistance() && followEnabled && !isDead)
+        if (Time.time > (lastAttackTime + attackDelay) && isAttacking)
         {
-            PathFollow();
+            Debug.Log(Time.time);
+            isAttacking = false;
         }
+
+        if (!isAttacking)
+        {
+            if (playerInRange)
+            {
+                Attack();
+            }
+            else if (TargetInDistance() && followEnabled && !isDead)
+            {
+                PathFollow();
+            }
+        }
+        
         GroundCheck();
         AnimState();
     }
@@ -104,24 +119,21 @@ public class EnemyAI : MonoBehaviour
         Vector2 force = direction * speed * Time.deltaTime;
 
         // Jump
-        if (jumpEnabled && isGrounded && !canFly)
+        if (jumpEnabled && isGrounded && !canFly && !isAttacking)
         {
             if (direction.y > jumpNodeHeightRequirement)
             {
                 rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             }
-        }
-
-        if (Time.time > lastAttackTime + attackDelay)
-        {
-            isAttacking = false;
-        }
+        }        
 
         // Attack
-        Vector2 posForward = transform.position + transform.forward;
-        float distanceToPlayer = Vector3.Distance(transform.position, target.position);
+        //Vector2 posForward = transform.position + transform.forward;
+        //float distanceToPlayer = Vector3.Distance(transform.position, target.position);
+
         float distance = Vector3.Distance(transform.position, target.transform.position);
 
+        /*
         if (distanceToPlayer < attackRange && canAttack)
         {
             Collider2D hit = Physics2D.OverlapCircle(posForward, attackRange, playerLayer);
@@ -135,9 +147,10 @@ public class EnemyAI : MonoBehaviour
                 }
             }
         }
+        */
 
         // Shoot
-        else if (distance <= shootingRange && lineOfSight() && canShoot)
+        if (distance <= shootingRange && lineOfSight() && canShoot && !isAttacking)
         {
             if (timeShots <= 0)
             {
@@ -151,7 +164,7 @@ public class EnemyAI : MonoBehaviour
         }
 
         // Move
-        else if ((distance < activateDistance))
+        else if ((distance < activateDistance) && !isAttacking)
         {
             rb.AddForce(force);
         }
@@ -229,23 +242,23 @@ public class EnemyAI : MonoBehaviour
         anim.SetInteger("state", state);
     }
 
-    private IEnumerator Attack()
+    public void Attack()
     {
-        yield return new WaitForSeconds((anim.GetCurrentAnimatorStateInfo(0).length + anim.GetCurrentAnimatorStateInfo(0).normalizedTime)/2);
+        if (!isAttacking && canAttack)
+        {
+            isAttacking = true;
+            lastAttackTime = Time.time;
+        }
+    }
 
+    public void DamagePlayer()
+    {
         SoundManager.PlaySound("enemyAttack");
 
-        Vector2 posForward = transform.position + transform.forward;
-        Collider2D hit = Physics2D.OverlapCircle(posForward, attackRange, playerLayer);
-        if (hit != null)
+        if (playerInRange)
         {
-            if(hit.tag == "Player")
-            {
-                hit.GetComponent<PlayerController>().Damage();
-            }
+            target.gameObject.GetComponent<PlayerController>().Damage();
         }
-
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
     }
 
     public void Die()

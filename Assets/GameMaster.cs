@@ -30,4 +30,16 @@ public static class GameMaster
     {
         SceneManager.LoadScene(levelToLoad);
     }
+
+    public static void SetBrightness(float brightness)
+    {
+        GameData gd = GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd;
+        gd.bright = brightness;
+    }
+    
+    public static float GetBrightness()
+    {
+        GameData gd = GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd;
+        return gd.bright;
+    }
 }

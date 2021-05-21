@@ -12,6 +12,7 @@ TagManager:
   - Cinemachine
   - Instruction
   - GameData
+  - Mouse
   layers:
   - Default
   - TransparentFX
@@ -60,6 +61,9 @@ TagManager:
     locked: 0
   - name: Enemies
     uniqueID: 2572978969
+    locked: 0
+  - name: UI
+    uniqueID: 887445779
     locked: 0
   - name: Mouse
     uniqueID: 91394227

@@ -5,26 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class DataManager : MonoBehaviour
 {
-    private GameData gd;
+    public GameData Gd;
 
     void Start()
     {
         Gd = new GameData();
-        gd.spook = GameObject.Find("oldspook");
-        if (gd.spook != null) gd.spook.SetActive(false);
-        gd.canvas = GameObject.Find("oldCanvas");
-        if (gd.canvas != null) gd.canvas.SetActive(false);
-        gd.mainCamera = GameObject.Find("oldMain Camera");
-        if (gd.mainCamera != null) gd.mainCamera.SetActive(false);
-        gd.cursor = GameObject.Find("oldCursor");
-        if (gd.cursor != null) gd.cursor.SetActive(false);
-        gd.audioManager = GameObject.Find("oldAudioManager");
-        if (gd.audioManager != null) gd.audioManager.SetActive(false);
+        Gd.spook = GameObject.Find("oldspook");
+        if (Gd.spook != null) Gd.spook.SetActive(false);
+        Gd.canvas = GameObject.Find("oldCanvas");
+        if (Gd.canvas != null) Gd.canvas.SetActive(false);
+        Gd.mainCamera = GameObject.Find("oldMain Camera");
+        if (Gd.mainCamera != null) Gd.mainCamera.SetActive(false);
+        Gd.cursor = GameObject.Find("oldCursor");
+        if (Gd.cursor != null) Gd.cursor.SetActive(false);
+        Gd.audioManager = GameObject.Find("oldAudioManager");
+        if (Gd.audioManager != null) Gd.audioManager.SetActive(false);
 
         Cursor.visible = true;
     }
 
-    public GameData Gd { get => gd; set => gd = value; }
 
 
     private void OnLevelWasLoaded(int level)

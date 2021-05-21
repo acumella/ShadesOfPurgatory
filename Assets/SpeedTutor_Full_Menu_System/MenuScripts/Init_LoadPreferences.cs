@@ -48,6 +48,7 @@ namespace SpeedTutorMainMenuSystem
 
                         brightnessText.text = localBrightness.ToString("0.0");
                         brightnessSlider.value = localBrightness;
+
                         brightnessEffect.brightness = localBrightness;
                     }
 

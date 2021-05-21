@@ -6,13 +6,22 @@ public class ShowInstruction : MonoBehaviour
 {
     private GameObject instructions, instructionToShow;
     [SerializeField] private int numInstruction;
+    private GameObject mouse;
     bool showing = false;
     private static bool[] shown = {false, false, false};
+
+    private void Start()
+    {
+        mouse = GameObject.FindGameObjectWithTag("Mouse");
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player" && !shown[numInstruction-1])
         {
+            Cursor.visible = true;
+            mouse.SetActive(false);
+
             instructions = GameObject.Find("oldCanvas").transform.Find("Instructions").gameObject;
             instructions.SetActive(true);
 
@@ -33,11 +42,13 @@ public class ShowInstruction : MonoBehaviour
     {
         if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Space)) && showing)
         {
+            mouse.SetActive(true);
             Time.timeScale = 1;
             instructions.SetActive(false);
             instructionToShow.SetActive(false);
             GameObject.Find("oldCanvas").GetComponent<PauseMenu>().showingInstruction = false;
             shown[numInstruction-1] = true;
+            Cursor.visible = false;
             showing = false;
         }
     }
