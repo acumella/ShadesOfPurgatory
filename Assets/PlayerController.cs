@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask bulletLayer;
     [SerializeField] private CursorManager cursor;
     [SerializeField] private HealthBar healthBar;
+    [SerializeField] private GameOver gameOver;
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private float timeJump;
@@ -298,11 +299,9 @@ public class PlayerController : MonoBehaviour
     public void Reset()
     {
         health = 5;
-        healthBar.SetHealth(health);
         isDying = false;
         GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.playerHealth = health;
         GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.Save();
-
     }
 
     private void ResetInvulnerability()
@@ -317,6 +316,10 @@ public class PlayerController : MonoBehaviour
     {
         health = hp;
         healthBar.SetHealth(health);
+        if (health <= 0)
+        {
+            Die();
+        }
     }
 
     public void Die()
@@ -327,7 +330,7 @@ public class PlayerController : MonoBehaviour
 
     private void Respawn()
     {
-        GameMaster.Respawn();
+        gameOver.Pause();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -335,7 +338,12 @@ public class PlayerController : MonoBehaviour
         if(collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Bullet")
         {
             Damage();
+        } else if (collision.gameObject.tag == "Spikes")
+        {
+            SetHealth(0);
         }
+          
+
     }
 
 }

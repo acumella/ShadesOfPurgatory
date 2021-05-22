@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -51,7 +50,7 @@ public class PauseMenu : MonoBehaviour
     {
         Resume();
         Cursor.visible = true;
-        SceneManager.LoadScene("MainMenu");
+        GameMaster.LoadScene("MainMenu");
 
         //GameObject.Find("oldspook").SetActive(false);
         //GameObject.Find("oldCanvas").SetActive(false);

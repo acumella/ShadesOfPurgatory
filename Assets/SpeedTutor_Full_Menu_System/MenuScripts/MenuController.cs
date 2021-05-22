@@ -115,7 +115,7 @@ namespace SpeedTutorMainMenuSystem
             {
                 GeneralSettingsCanvas.SetActive(false);
                 graphicsMenu.SetActive(true);
-                brightnessSlider.value = bright;
+                brightnessSlider.value = PlayerPrefs.GetFloat("masterBrightness");
                 menuNumber = 3;
             }
 
@@ -123,7 +123,7 @@ namespace SpeedTutorMainMenuSystem
             {
                 GeneralSettingsCanvas.SetActive(false);
                 soundMenu.SetActive(true);
-                volumeSlider.value = volume;
+                volumeSlider.value = PlayerPrefs.GetFloat("masterVolume");
                 menuNumber = 4;
             }
 
@@ -171,7 +171,7 @@ namespace SpeedTutorMainMenuSystem
 
         public void VolumeApply()
         {
-            PlayerPrefs.SetFloat("masterVolume", volume);
+            PlayerPrefs.SetFloat("masterVolume", volumeSlider.value);
             Debug.Log(PlayerPrefs.GetFloat("masterVolume"));
             StartCoroutine(ConfirmationBox());
         }
@@ -184,7 +184,7 @@ namespace SpeedTutorMainMenuSystem
 
         public void BrightnessApply()
         {
-            PlayerPrefs.SetFloat("masterBrightness", bright);
+            PlayerPrefs.SetFloat("masterBrightness", brightnessSlider.value);
             Debug.Log(PlayerPrefs.GetFloat("masterBrightness"));
             StartCoroutine(ConfirmationBox());
         }
@@ -220,22 +220,29 @@ namespace SpeedTutorMainMenuSystem
         {
             if (GraphicsMenu == "Brightness")
             {
-                brightnessEffect.brightness = defaultBrightness;
+                bright = defaultBrightness;
                 brightnessSlider.value = defaultBrightness;
                 brightnessText.text = defaultBrightness.ToString("0.0");
                 BrightnessApply();
+                //Debug.Log(PlayerPrefs.GetFloat("masterBrightness"));
             }
 
             if (GraphicsMenu == "Audio")
             {
-                AudioListener.volume = defaultVolume;
+                volume = defaultVolume;
                 volumeSlider.value = defaultVolume;
                 volumeText.text = defaultVolume.ToString("0.0");
                 VolumeApply();
             }
-
+            /*
             if (GraphicsMenu == "Graphics")
             {
+                Debug.Log("GRAPHICS");
+                bright = defaultBrightness;
+                brightnessSlider.value = defaultBrightness;
+                brightnessText.text = defaultBrightness.ToString("0.0");
+                BrightnessApply();
+                
                 controllerSenText.text = defaultSen.ToString("0");
                 controllerSenSlider.value = defaultSen;
                 controlSenFloat = defaultSen;
@@ -243,8 +250,9 @@ namespace SpeedTutorMainMenuSystem
                 invertYToggle.isOn = false;
 
                 GameplayApply();
-            }
-        }
+                
+        }*/
+    }
         #endregion
 
         #region Dialog Options - This is where we load what has been saved in player prefs!
@@ -267,8 +275,8 @@ namespace SpeedTutorMainMenuSystem
                 GameData gd = GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd;
                 gd.NewGame();
                 GameMaster.LoadScene(_newGameButtonLevel);
-                AudioListener.volume = volume;
-                GameMaster.SetBrightness(bright);
+                AudioListener.volume = PlayerPrefs.GetFloat("masterVolume");
+                GameMaster.SetBrightness(PlayerPrefs.GetFloat("masterBrightness"));
             }
 
             if (ButtonType == "No")
@@ -285,8 +293,8 @@ namespace SpeedTutorMainMenuSystem
                 GameData gd = GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd;
                 gd.Load();
                 GameMaster.LoadScene(gd.level);
-                AudioListener.volume = volume;
-                GameMaster.SetBrightness(bright);
+                AudioListener.volume = PlayerPrefs.GetFloat("masterVolume");
+                GameMaster.SetBrightness(PlayerPrefs.GetFloat("masterBrightness"));
                 /*
                 if (PlayerPrefs.HasKey("SavedLevel"))
                 {
@@ -340,7 +348,7 @@ namespace SpeedTutorMainMenuSystem
             soundMenu.SetActive(false);
             gameplayMenu.SetActive(false);
 
-            GameplayApply();
+            //GameplayApply();
             bright = PlayerPrefs.GetFloat("masterBrightness");
             //BrightnessApply();
             volume = PlayerPrefs.GetFloat("masterVolume");

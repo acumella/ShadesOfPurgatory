@@ -7,10 +7,10 @@ public static class GameMaster
 {
     public static void Respawn()
     {
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().Reset();
         GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.previousLevel = 0;
-        SceneManager.LoadScene(GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.respawnLevel);
+        LoadScene(GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.respawnLevel);
         RespawnEnemies();
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().Reset();
     }
 
     private static void RespawnEnemies()
