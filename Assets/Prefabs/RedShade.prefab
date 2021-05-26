@@ -280,6 +280,8 @@ GameObject:
   - component: {fileID: 734224210507584374}
   - component: {fileID: 3434598397817519336}
   - component: {fileID: 2402798683215250325}
+  - component: {fileID: 4578922932391829317}
+  - component: {fileID: 148664253699631756}
   m_Layer: 0
   m_Name: Melee
   m_TagString: Untagged
@@ -314,8 +316,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -2.335133, y: 0.034067433}
-  m_Size: {x: 2.854827, y: 3.0690765}
+  m_Offset: {x: -2.4619827, y: 0.03406745}
+  m_Size: {x: 3.1085277, y: 3.0690794}
   m_Direction: 1
 --- !u!114 &2402798683215250325
 MonoBehaviour:
@@ -329,3 +331,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 431356d1c797a4d45993a71ec45bac31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!70 &4578922932391829317
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5236680075581294830}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: a9ec3d4c74e69cb4c96b86c8af97f53e, type: 2}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.82454187, y: 1.4520117}
+  m_Size: {x: 1.1936713, y: 4.88277}
+  m_Direction: 0
+--- !u!70 &148664253699631756
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5236680075581294830}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: a9ec3d4c74e69cb4c96b86c8af97f53e, type: 2}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -1.8709489, y: 0.16977462}
+  m_Size: {x: 2.456544, y: 4.171783}
+  m_Direction: 0

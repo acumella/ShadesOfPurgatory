@@ -36,7 +36,7 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag != "Enemy" && collision.tag != "Boundaries" && collision.tag != "StartPosition" && collision.tag != "Instruction")
+        if (collision.tag != "Enemy" && collision.tag != "Boundaries" && collision.tag != "StartPosition" && collision.tag != "Instruction" && collision.name != "Melee")
         {
             DestroyBullet();
         }
