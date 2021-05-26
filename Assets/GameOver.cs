@@ -21,12 +21,11 @@ public class GameOver : MonoBehaviour
 
     public void Continue()
     {
-        gameOverUI.SetActive(false);
+        GameMaster.Respawn();
         mouse.SetActive(true);
         Time.timeScale = 1f;
         isPaused = false;
-        Cursor.visible = false;
-        GameMaster.Respawn();
+        gameOverUI.SetActive(false);
     }
 
     public void Pause()
@@ -54,8 +53,5 @@ public class GameOver : MonoBehaviour
 
     }
 
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
+
 }

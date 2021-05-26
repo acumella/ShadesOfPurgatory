@@ -72,7 +72,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (Time.time > (lastAttackTime + attackDelay) && isAttacking)
         {
-            Debug.Log(Time.time);
+            //Debug.Log(Time.time);
             isAttacking = false;
         }
 
@@ -254,10 +254,10 @@ public class EnemyAI : MonoBehaviour
     public void DamagePlayer()
     {
         SoundManager.PlaySound("enemyAttack");
-
         if (playerInRange)
         {
             target.gameObject.GetComponent<PlayerController>().Damage();
+            Debug.Log("esto esta mal");
         }
     }
 

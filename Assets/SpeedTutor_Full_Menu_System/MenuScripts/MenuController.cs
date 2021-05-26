@@ -32,6 +32,7 @@ namespace SpeedTutorMainMenuSystem
         [SerializeField] private GameObject gameplayMenu;
         [SerializeField] private GameObject controlsMenu;
         [SerializeField] private GameObject confirmationMenu;
+        [SerializeField] private GameObject BG_UI;
         [Space(10)]
         [Header("Menu Popout Dialogs")]
         [SerializeField] private GameObject noSaveDialog;
@@ -144,6 +145,7 @@ namespace SpeedTutorMainMenuSystem
             {
                 menuDefaultCanvas.SetActive(false);
                 GeneralSettingsCanvas.SetActive(true);
+                BG_UI.SetActive(false);
                 menuNumber = 2;
             }
 
@@ -151,6 +153,7 @@ namespace SpeedTutorMainMenuSystem
             {
                 menuDefaultCanvas.SetActive(false);
                 loadGameDialog.SetActive(true);
+                BG_UI.SetActive(false);
                 menuNumber = 8;
             }
 
@@ -158,6 +161,7 @@ namespace SpeedTutorMainMenuSystem
             {
                 menuDefaultCanvas.SetActive(false);
                 newGameDialog.SetActive(true);
+                BG_UI.SetActive(false);
                 menuNumber = 7;
             }
         }
@@ -367,6 +371,7 @@ namespace SpeedTutorMainMenuSystem
             graphicsMenu.SetActive(false);
             soundMenu.SetActive(false);
             gameplayMenu.SetActive(false);
+            BG_UI.SetActive(true);
             menuNumber = 1;
         }
 
