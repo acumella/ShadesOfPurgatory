@@ -50,7 +50,7 @@ public class PauseMenu : MonoBehaviour
     {
         Resume();
         Cursor.visible = true;
-        GameMaster.LoadScene("MainMenu");
+        GameMaster.LoadScene(0);
 
         //GameObject.Find("oldspook").SetActive(false);
         //GameObject.Find("oldCanvas").SetActive(false);

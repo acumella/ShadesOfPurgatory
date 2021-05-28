@@ -54,6 +54,7 @@ public class EnemyAI : MonoBehaviour
     public bool playerInRange = false;
 
     private bool isDead = false;
+    private bool activated = false;
 
 
     public void Start()
@@ -189,10 +190,14 @@ public class EnemyAI : MonoBehaviour
             }
         }
     }
-
     private bool TargetInDistance()
     {
-        return Vector2.Distance(transform.position, target.transform.position) < activateDistance;
+        if ((Vector2.Distance(transform.position, target.transform.position) < activateDistance) && (lineOfSight() || activated))
+        {
+            activated = true;
+            return true;
+        }
+        return false;
     }
 
     private void OnPathComplete(Path p)

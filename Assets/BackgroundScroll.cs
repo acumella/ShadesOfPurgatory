@@ -14,7 +14,7 @@ public class BackgroundScroll : MonoBehaviour
     {
         rtransform = GetComponent<RectTransform>();
         startPos = rtransform.localPosition;
-        Debug.Log(startPos);
+        //Debug.Log(startPos);
     }
 
     void Update()

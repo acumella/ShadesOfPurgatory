@@ -12,10 +12,12 @@ public class GameData
     public int level;
     public int playerHealth;
 
+    public bool secret2 = false;
+
     public ArrayList enemiesDestroyedScene2 = new ArrayList();
     public ArrayList enemiesDestroyedScene3 = new ArrayList();
-    public ArrayList enemiesDestroyedScene4 = new ArrayList();
     public ArrayList enemiesDestroyedScene5 = new ArrayList();
+    public ArrayList enemiesDestroyedScene6 = new ArrayList();
 
     public ArrayList instructionsShown = new ArrayList();
 
@@ -44,6 +46,7 @@ public class GameData
                 case 2:
                     for (int i = 0; i < enemiesDestroyedScene2.Count; i++) GameObject.Destroy(GameObject.Find((string)enemiesDestroyedScene2[i]));
                     if(instructionsShown.Count >=2) GameObject.Destroy(GameObject.Find((string)instructionsShown[1]));
+                    if (secret2) GameObject.Find("Grid").transform.Find("Secret").gameObject.SetActive(false);
                     respawnLevel = 2;
                     break;
                 case 3:
@@ -51,11 +54,13 @@ public class GameData
                     if (instructionsShown.Count >= 3) GameObject.Destroy(GameObject.Find((string)instructionsShown[2]));
                     break;
                 case 4:
-                    for (int i = 0; i < enemiesDestroyedScene4.Count; i++) GameObject.Destroy(GameObject.Find((string)enemiesDestroyedScene4[i]));
                     respawnLevel = 4;
                     break;
                 case 5:
                     for (int i = 0; i < enemiesDestroyedScene5.Count; i++) GameObject.Destroy(GameObject.Find((string)enemiesDestroyedScene5[i]));
+                    break;
+                case 6:
+                    for (int i = 0; i < enemiesDestroyedScene6.Count; i++) GameObject.Destroy(GameObject.Find((string)enemiesDestroyedScene6[i]));
                     break;
             }
 
@@ -98,11 +103,11 @@ public class GameData
             case 3:
                 enemiesDestroyedScene3.Add(go.name);
                 break;
-            case 4:
-                enemiesDestroyedScene4.Add(go.name);
-                break;
             case 5:
                 enemiesDestroyedScene5.Add(go.name);
+                break;
+            case 6:
+                enemiesDestroyedScene6.Add(go.name);
                 break;
         }
     }
@@ -122,10 +127,12 @@ public class GameData
         level = data.level;
         playerHealth = data.playerHealth;
 
+        secret2 = data.secret2;
+
         enemiesDestroyedScene2 = data.enemiesDestroyedScene2;
         enemiesDestroyedScene3 = data.enemiesDestroyedScene3;
-        enemiesDestroyedScene4 = data.enemiesDestroyedScene4;
         enemiesDestroyedScene5 = data.enemiesDestroyedScene5;
+        enemiesDestroyedScene6 = data.enemiesDestroyedScene6;
 
         respawnLevel = data.respawnLevel;
 
@@ -139,10 +146,12 @@ public class GameData
         level = 1;
         playerHealth = 5;
 
+        secret2 = false;
+
         enemiesDestroyedScene2 = new ArrayList();
         enemiesDestroyedScene3 = new ArrayList();
-        enemiesDestroyedScene4 = new ArrayList();
         enemiesDestroyedScene5 = new ArrayList();
+        enemiesDestroyedScene6 = new ArrayList();
 
         instructionsShown = new ArrayList();
     }

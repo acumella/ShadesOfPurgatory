@@ -57,6 +57,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Spikes
+    uniqueID: 1864690121
+    locked: 0
+  - name: SecretBG
+    uniqueID: 151325821
+    locked: 0
+  - name: SecretFG
+    uniqueID: 3754768949
+    locked: 0
   - name: Foreground
     uniqueID: 2986271949
     locked: 0

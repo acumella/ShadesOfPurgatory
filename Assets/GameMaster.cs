@@ -17,18 +17,25 @@ public static class GameMaster
     {
         GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.enemiesDestroyedScene2 = new ArrayList();
         GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.enemiesDestroyedScene3 = new ArrayList();
-        GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.enemiesDestroyedScene4 = new ArrayList();
         GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.enemiesDestroyedScene5 = new ArrayList();
+        GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.enemiesDestroyedScene6 = new ArrayList();
+    }
+
+    private static void SecretEntrance(int level)
+    {
+        int currentLevel = SceneManager.GetActiveScene().buildIndex;
+        switch (level)
+        {
+            case 2:
+                if(currentLevel == 6) GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.secret2 = true;
+                break;
+        }
     }
 
     public static void LoadScene(int levelToLoad)
     {
         SceneManager.LoadScene(levelToLoad);
-    }
-
-    public static void LoadScene(string levelToLoad)
-    {
-        SceneManager.LoadScene(levelToLoad);
+        SecretEntrance(levelToLoad);
     }
 
     public static void SetBrightness(float brightness)
