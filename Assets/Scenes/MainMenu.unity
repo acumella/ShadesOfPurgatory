@@ -968,6 +968,7 @@ MonoBehaviour:
     previousLevel: 0
     level: 0
     playerHealth: 0
+    secret2: 0
     respawnLevel: 1
     bright: 0
 --- !u!114 &862928667
@@ -1832,6 +1833,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1186638922611650233, guid: 8688fbf70c19eb1489e35d35374fd8ab,
+        type: 3}
+      propertyPath: m_LinearDrag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186638922611650233, guid: 8688fbf70c19eb1489e35d35374fd8ab,
+        type: 3}
+      propertyPath: m_GravityScale
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2064235669370726346, guid: 8688fbf70c19eb1489e35d35374fd8ab,
         type: 3}
       propertyPath: m_Name
@@ -1852,6 +1863,11 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 768480079}
+    - target: {fileID: 6342845529193364114, guid: 8688fbf70c19eb1489e35d35374fd8ab,
+        type: 3}
+      propertyPath: jumpForce
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 6342845529193364114, guid: 8688fbf70c19eb1489e35d35374fd8ab,
         type: 3}
       propertyPath: healthText
