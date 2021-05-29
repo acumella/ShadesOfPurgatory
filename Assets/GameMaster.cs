@@ -29,7 +29,18 @@ public static class GameMaster
             case 2:
                 if(currentLevel == 6) GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.secret2 = true;
                 break;
+            case 4:
+                if (currentLevel == 8) GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.secret4 = true;
+                break;
         }
+    }
+
+    public static void Spike()
+    {
+        int currentLevel = SceneManager.GetActiveScene().buildIndex;
+        LoadScene(0);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().isDying = false;
+        LoadScene(currentLevel);
     }
 
     public static void LoadScene(int levelToLoad)

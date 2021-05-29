@@ -9,15 +9,17 @@ public class GameData
 {
     public int previousLevel;
 
-    public int level;
+    //public int level;
     public int playerHealth;
 
-    public bool secret2 = false;
+    public bool secret2 = false, secret4 = false;
 
     public ArrayList enemiesDestroyedScene2 = new ArrayList();
     public ArrayList enemiesDestroyedScene3 = new ArrayList();
     public ArrayList enemiesDestroyedScene5 = new ArrayList();
     public ArrayList enemiesDestroyedScene6 = new ArrayList();
+    public ArrayList enemiesDestroyedScene7 = new ArrayList();
+    public ArrayList enemiesDestroyedScene8 = new ArrayList();
 
     public ArrayList instructionsShown = new ArrayList();
 
@@ -34,7 +36,7 @@ public class GameData
             ActivateAllObjects();
             Cursor.visible = false;
 
-            this.level = level;
+            //this.level = level;
 
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().SetHealth(playerHealth);
             GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>().position = GameObject.Find("StartPos" + previousLevel.ToString()).transform.position;
@@ -55,12 +57,19 @@ public class GameData
                     break;
                 case 4:
                     respawnLevel = 4;
+                    if (secret4) GameObject.Find("Grid").transform.Find("Secret").gameObject.SetActive(false);
                     break;
                 case 5:
                     for (int i = 0; i < enemiesDestroyedScene5.Count; i++) GameObject.Destroy(GameObject.Find((string)enemiesDestroyedScene5[i]));
                     break;
                 case 6:
                     for (int i = 0; i < enemiesDestroyedScene6.Count; i++) GameObject.Destroy(GameObject.Find((string)enemiesDestroyedScene6[i]));
+                    break;
+                case 7:
+                    for(int i = 0; i < enemiesDestroyedScene7.Count; i++) GameObject.Destroy(GameObject.Find((string)enemiesDestroyedScene7[i]));
+                    break;
+                case 8:
+                    for(int i = 0; i < enemiesDestroyedScene8.Count; i++) GameObject.Destroy(GameObject.Find((string)enemiesDestroyedScene8[i]));
                     break;
             }
 
@@ -124,15 +133,18 @@ public class GameData
 
         previousLevel = 0;
 
-        level = data.level;
+        //level = data.level;
         playerHealth = data.playerHealth;
 
         secret2 = data.secret2;
+        secret4 = data.secret4;
 
         enemiesDestroyedScene2 = data.enemiesDestroyedScene2;
         enemiesDestroyedScene3 = data.enemiesDestroyedScene3;
         enemiesDestroyedScene5 = data.enemiesDestroyedScene5;
         enemiesDestroyedScene6 = data.enemiesDestroyedScene6;
+        enemiesDestroyedScene6 = data.enemiesDestroyedScene7;
+        enemiesDestroyedScene6 = data.enemiesDestroyedScene8;
 
         respawnLevel = data.respawnLevel;
 
@@ -143,15 +155,20 @@ public class GameData
     {
         previousLevel = 0;
 
-        level = 1;
+        //level = 1;
         playerHealth = 5;
 
         secret2 = false;
+        secret4 = false;
 
         enemiesDestroyedScene2 = new ArrayList();
         enemiesDestroyedScene3 = new ArrayList();
         enemiesDestroyedScene5 = new ArrayList();
         enemiesDestroyedScene6 = new ArrayList();
+        enemiesDestroyedScene7 = new ArrayList();
+        enemiesDestroyedScene8 = new ArrayList();
+
+        respawnLevel = 1;
 
         instructionsShown = new ArrayList();
     }

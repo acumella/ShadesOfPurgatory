@@ -966,9 +966,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Gd:
     previousLevel: 0
-    level: 0
     playerHealth: 0
     secret2: 0
+    secret4: 0
     respawnLevel: 1
     bright: 0
 --- !u!114 &862928667
@@ -1872,6 +1872,11 @@ PrefabInstance:
         type: 3}
       propertyPath: healthText
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6342845529193364114, guid: 8688fbf70c19eb1489e35d35374fd8ab,
+        type: 3}
+      propertyPath: invencible
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8688fbf70c19eb1489e35d35374fd8ab, type: 3}

@@ -29,6 +29,8 @@ public class EnemyHealthManager : MonoBehaviour
     {
         currentHP -= damage;
         gameObject.GetComponent<EnemyAI>().Slash();
+        gameObject.GetComponent<EnemyAI>().activated = true;
+        gameObject.GetComponent<EnemyAI>().activateDistance = 20;
         Debug.Log(currentHP);
     }
 

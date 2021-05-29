@@ -296,7 +296,7 @@ namespace SpeedTutorMainMenuSystem
             {
                 GameData gd = GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd;
                 gd.Load();
-                GameMaster.LoadScene(gd.level);
+                GameMaster.LoadScene(gd.respawnLevel);
                 AudioListener.volume = PlayerPrefs.GetFloat("masterVolume");
                 GameMaster.SetBrightness(PlayerPrefs.GetFloat("masterBrightness"));
                 /*

@@ -330,7 +330,8 @@ public class PlayerController : MonoBehaviour
 
     private void Respawn()
     {
-        gameOver.Pause();
+        if (health == 0) gameOver.Pause();
+        else GameMaster.Spike();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -340,7 +341,8 @@ public class PlayerController : MonoBehaviour
             Damage();
         } else if (collision.gameObject.tag == "Spikes")
         {
-            SetHealth(0);
+            Damage();
+            Die();
         }
           
 

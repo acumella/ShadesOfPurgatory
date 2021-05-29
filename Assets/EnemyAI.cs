@@ -22,7 +22,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float nextWaypointDistance = 2f;
     [SerializeField] private float jumpNodeHeightRequirement = 0.8f;
     [SerializeField] private float jumpForce = 2000f;
-    [SerializeField] private float activateDistance = 50f;
+    [SerializeField] public float activateDistance = 50f;
     [SerializeField] private float pathUpdateSeconds = 0.5f;
 
     //[SerializeField] private float attackRange;
@@ -54,7 +54,7 @@ public class EnemyAI : MonoBehaviour
     public bool playerInRange = false;
 
     private bool isDead = false;
-    private bool activated = false;
+    public bool activated = false;
 
 
     public void Start()
@@ -180,11 +180,11 @@ public class EnemyAI : MonoBehaviour
         // Flip sprite
         if (directionLookEnabled)
         {
-            if (rb.velocity.x > 0.05f)
+            if (target.transform.position.x > gameObject.transform.position.x)
             {
                 transform.localScale = new Vector3(-1f * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
-            else if (rb.velocity.x < -0.05f)
+            else if (target.transform.position.x < gameObject.transform.position.x)
             {
                 transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
@@ -262,7 +262,6 @@ public class EnemyAI : MonoBehaviour
         if (playerInRange)
         {
             target.gameObject.GetComponent<PlayerController>().Damage();
-            Debug.Log("esto esta mal");
         }
     }
 
