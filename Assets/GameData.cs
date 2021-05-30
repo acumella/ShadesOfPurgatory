@@ -20,6 +20,8 @@ public class GameData
     public ArrayList enemiesDestroyedScene6 = new ArrayList();
     public ArrayList enemiesDestroyedScene7 = new ArrayList();
     public ArrayList enemiesDestroyedScene8 = new ArrayList();
+    public ArrayList enemiesDestroyedScene9 = new ArrayList();
+    public ArrayList enemiesDestroyedScene10 = new ArrayList();
 
     public ArrayList instructionsShown = new ArrayList();
 
@@ -37,7 +39,7 @@ public class GameData
             Cursor.visible = false;
 
             //this.level = level;
-
+            if (!GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().isDying) GameMaster.SecretEntrance(level);
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().SetHealth(playerHealth);
             GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>().position = GameObject.Find("StartPos" + previousLevel.ToString()).transform.position;
 
@@ -71,6 +73,12 @@ public class GameData
                 case 8:
                     for(int i = 0; i < enemiesDestroyedScene8.Count; i++) GameObject.Destroy(GameObject.Find((string)enemiesDestroyedScene8[i]));
                     break;
+                case 9:
+                    for (int i = 0; i < enemiesDestroyedScene9.Count; i++) GameObject.Destroy(GameObject.Find((string)enemiesDestroyedScene9[i]));
+                    break;
+                case 10:
+                    for (int i = 0; i < enemiesDestroyedScene10.Count; i++) GameObject.Destroy(GameObject.Find((string)enemiesDestroyedScene10[i]));
+                    break;
             }
 
             if(playerHealth == 0)
@@ -98,6 +106,7 @@ public class GameData
             //Debug.Log("VOLUME: " + AudioListener.volume);
         }
 
+        //Debug.Log(previousLevel);
         previousLevel = level;
 
     }
@@ -117,6 +126,18 @@ public class GameData
                 break;
             case 6:
                 enemiesDestroyedScene6.Add(go.name);
+                break;
+            case 7:
+                enemiesDestroyedScene7.Add(go.name);
+                break;
+            case 8:
+                enemiesDestroyedScene8.Add(go.name);
+                break;
+            case 9:
+                enemiesDestroyedScene9.Add(go.name);
+                break;
+            case 10:
+                enemiesDestroyedScene10.Add(go.name);
                 break;
         }
     }
@@ -143,8 +164,10 @@ public class GameData
         enemiesDestroyedScene3 = data.enemiesDestroyedScene3;
         enemiesDestroyedScene5 = data.enemiesDestroyedScene5;
         enemiesDestroyedScene6 = data.enemiesDestroyedScene6;
-        enemiesDestroyedScene6 = data.enemiesDestroyedScene7;
-        enemiesDestroyedScene6 = data.enemiesDestroyedScene8;
+        enemiesDestroyedScene7 = data.enemiesDestroyedScene7;
+        enemiesDestroyedScene8 = data.enemiesDestroyedScene8;
+        enemiesDestroyedScene9 = data.enemiesDestroyedScene9;
+        enemiesDestroyedScene10 = data.enemiesDestroyedScene10;
 
         respawnLevel = data.respawnLevel;
 
@@ -167,6 +190,8 @@ public class GameData
         enemiesDestroyedScene6 = new ArrayList();
         enemiesDestroyedScene7 = new ArrayList();
         enemiesDestroyedScene8 = new ArrayList();
+        enemiesDestroyedScene9 = new ArrayList();
+        enemiesDestroyedScene10 = new ArrayList();
 
         respawnLevel = 1;
 

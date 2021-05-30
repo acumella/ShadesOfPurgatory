@@ -278,9 +278,9 @@ namespace SpeedTutorMainMenuSystem
                 */
                 GameData gd = GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd;
                 gd.NewGame();
-                GameMaster.LoadScene(1);
                 AudioListener.volume = PlayerPrefs.GetFloat("masterVolume");
                 GameMaster.SetBrightness(PlayerPrefs.GetFloat("masterBrightness"));
+                GameMaster.LoadScene(1);       
             }
 
             if (ButtonType == "No")
@@ -296,9 +296,9 @@ namespace SpeedTutorMainMenuSystem
             {
                 GameData gd = GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd;
                 gd.Load();
-                GameMaster.LoadScene(gd.respawnLevel);
                 AudioListener.volume = PlayerPrefs.GetFloat("masterVolume");
                 GameMaster.SetBrightness(PlayerPrefs.GetFloat("masterBrightness"));
+                GameMaster.LoadScene(gd.respawnLevel);
                 /*
                 if (PlayerPrefs.HasKey("SavedLevel"))
                 {

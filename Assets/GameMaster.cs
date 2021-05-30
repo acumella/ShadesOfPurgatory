@@ -21,7 +21,7 @@ public static class GameMaster
         GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.enemiesDestroyedScene6 = new ArrayList();
     }
 
-    private static void SecretEntrance(int level)
+    public static void SecretEntrance(int level)
     {
         int currentLevel = SceneManager.GetActiveScene().buildIndex;
         switch (level)
@@ -38,15 +38,20 @@ public static class GameMaster
     public static void Spike()
     {
         int currentLevel = SceneManager.GetActiveScene().buildIndex;
-        LoadScene(0);
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().isDying = false;
-        LoadScene(currentLevel);
+        ReloadScene();
     }
 
     public static void LoadScene(int levelToLoad)
     {
         SceneManager.LoadScene(levelToLoad);
-        SecretEntrance(levelToLoad);
+    }
+
+    private static void ReloadScene()
+    {
+        GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.previousLevel = 0;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        
     }
 
     public static void SetBrightness(float brightness)
