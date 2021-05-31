@@ -29,7 +29,10 @@ public class GameData
 
     public float bright;
 
-    [System.NonSerialized] public GameObject spook, canvas, mainCamera, cursor, audioManager;
+    public bool soul1, soul2, soul3;
+    public int numSouls;
+
+    [System.NonSerialized] public GameObject spook, canvas, mainCamera, cursor, audioManager, spriteSoul1, spriteSoul2, spriteSoul3;
 
     public void LevelLoaded(int level)
     {
@@ -39,7 +42,7 @@ public class GameData
             Cursor.visible = false;
 
             //this.level = level;
-            if (!GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().isDying) GameMaster.SecretEntrance(level);
+            //if (!GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().isDying) GameMaster.SecretEntrance(level);
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().SetHealth(playerHealth);
             GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>().position = GameObject.Find("StartPos" + previousLevel.ToString()).transform.position;
 
@@ -66,22 +69,25 @@ public class GameData
                     break;
                 case 6:
                     for (int i = 0; i < enemiesDestroyedScene6.Count; i++) GameObject.Destroy(GameObject.Find((string)enemiesDestroyedScene6[i]));
+                    if (soul1) GameObject.Destroy(GameObject.Find("Statue").transform.Find("Soul").gameObject);
                     break;
                 case 7:
                     for(int i = 0; i < enemiesDestroyedScene7.Count; i++) GameObject.Destroy(GameObject.Find((string)enemiesDestroyedScene7[i]));
                     break;
                 case 8:
                     for(int i = 0; i < enemiesDestroyedScene8.Count; i++) GameObject.Destroy(GameObject.Find((string)enemiesDestroyedScene8[i]));
+                    if (soul2) GameObject.Destroy(GameObject.Find("Statue").transform.Find("Soul").gameObject);
                     break;
                 case 9:
                     for (int i = 0; i < enemiesDestroyedScene9.Count; i++) GameObject.Destroy(GameObject.Find((string)enemiesDestroyedScene9[i]));
                     break;
                 case 10:
                     for (int i = 0; i < enemiesDestroyedScene10.Count; i++) GameObject.Destroy(GameObject.Find((string)enemiesDestroyedScene10[i]));
+                    if (soul3) GameObject.Destroy(GameObject.Find("Statue").transform.Find("Soul").gameObject);
                     break;
             }
 
-            if(playerHealth == 0)
+            if (playerHealth == 0)
             {
                 GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().Die();
             }
@@ -95,6 +101,7 @@ public class GameData
             if (mainCamera != null) mainCamera.SetActive(false);
             if (cursor != null) cursor.SetActive(false);
             if (audioManager != null) audioManager.SetActive(false);
+            DeactivateSouls();
 
             Cursor.visible = true;
         }
@@ -170,6 +177,11 @@ public class GameData
         enemiesDestroyedScene10 = data.enemiesDestroyedScene10;
 
         respawnLevel = data.respawnLevel;
+        soul1 = data.soul1;
+        soul2 = data.soul2;
+        soul3 = data.soul3;
+        numSouls = data.numSouls;
+        ActivateSouls();
 
         instructionsShown = data.instructionsShown;
     }
@@ -194,6 +206,11 @@ public class GameData
         enemiesDestroyedScene10 = new ArrayList();
 
         respawnLevel = 1;
+        soul1 = false;
+        soul2 = false;
+        soul3 = false;
+        numSouls = 0;
+        DeactivateSouls();
 
         instructionsShown = new ArrayList();
     }
@@ -205,6 +222,25 @@ public class GameData
         if (mainCamera != null) mainCamera.SetActive(true);
         if (cursor != null) cursor.SetActive(true);
         if (audioManager != null) audioManager.SetActive(true);
+    }
+
+    public void ActivateSouls()
+    {
+        if (numSouls == 1) spriteSoul1.SetActive(true);
+        if (numSouls == 2) spriteSoul2.SetActive(true);
+        if (numSouls == 3)
+        {
+            spriteSoul3.SetActive(true);
+            GameMaster.EndGame();
+        }
+
+    }
+
+    private void DeactivateSouls()
+    {
+        spriteSoul1.SetActive(false);
+        spriteSoul2.SetActive(false);
+        spriteSoul2.SetActive(false);
     }
 
 }

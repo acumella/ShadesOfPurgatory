@@ -3,7 +3,7 @@
 public class SoundManager : MonoBehaviour
 {
 
-    public static AudioClip playerSlash, playerDamaged, enemyAttack, bulletRelease, bulletImpact;
+    public static AudioClip playerSlash, playerDamaged, enemyAttack, bulletRelease, bulletImpact, soulPickup, footstep;
 
     public static float volume = 1f;
     public static float pitch = 1f;
@@ -16,6 +16,8 @@ public class SoundManager : MonoBehaviour
         enemyAttack = Resources.Load<AudioClip>("enemyAttack");
         bulletRelease = Resources.Load<AudioClip>("bulletRelease");
         bulletImpact = Resources.Load<AudioClip>("bulletImpact");
+        soulPickup = Resources.Load<AudioClip>("soulPickup");
+        footstep = Resources.Load<AudioClip>("footstep");
 
         source = GetComponent<AudioSource>();
     }
@@ -39,15 +41,12 @@ public class SoundManager : MonoBehaviour
             case "bulletImpact":
                 source.PlayOneShot(bulletImpact);
                 break;
+            case "soulPickup":
+                source.PlayOneShot(soulPickup);
+                break;
+            case "footstep":
+                source.PlayOneShot(footstep);
+                break;
         }
-    }
-
-    // Start is called before the first frame update
-    
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

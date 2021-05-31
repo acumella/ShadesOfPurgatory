@@ -21,7 +21,7 @@ public static class GameMaster
         GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.enemiesDestroyedScene6 = new ArrayList();
     }
 
-    public static void SecretEntrance(int level)
+    private static void SecretEntrance(int level)
     {
         int currentLevel = SceneManager.GetActiveScene().buildIndex;
         switch (level)
@@ -42,8 +42,13 @@ public static class GameMaster
         ReloadScene();
     }
 
+    public static void EndGame() {
+        GameObject.Find("oldCanvas").GetComponent<EndGame>().Activate();
+    }
+
     public static void LoadScene(int levelToLoad)
     {
+        SecretEntrance(levelToLoad);
         SceneManager.LoadScene(levelToLoad);
     }
 
@@ -65,4 +70,5 @@ public static class GameMaster
         GameData gd = GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd;
         return gd.bright;
     }
+
 }

@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool invencible = false;
 
     private float moveSide;
+    private float timeStepSound = 0;
 
     private bool isGrounded;
     
@@ -182,7 +183,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isDying) SetState(DEATH);
         else if (!isGrounded) SetState(JUMPING);
-        else if (rb.velocity.magnitude > 0) SetState(RUNNING);
+        else if (rb.velocity.magnitude > 0.1) SetState(RUNNING);
         else SetState(IDLE);
     }
 
@@ -264,6 +265,16 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         rb.velocity = new Vector2(moveSide * speed, rb.velocity.y);
+        if(rb.velocity.magnitude > 0.1) PlayFootstepSound();
+    }
+
+    private void PlayFootstepSound()
+    {
+        if (Time.time - timeStepSound > 0.3f && isGrounded)
+        {
+            SoundManager.PlaySound("footstep");
+            timeStepSound = Time.time;
+        }
     }
 
     private void Turn()
@@ -343,9 +354,7 @@ public class PlayerController : MonoBehaviour
         {
             Damage();
             Die();
-        }
-          
-
+        }      
     }
 
 }
