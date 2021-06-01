@@ -7,7 +7,7 @@ public class EndGame : MonoBehaviour
     private GameObject mouse;
     public GameObject gameOverUI;
     private PlayerController player;
-    public bool activateCheat = false;
+    public bool active = false;
 
     void Start()
     {
@@ -18,13 +18,13 @@ public class EndGame : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape) )
+        if (active)
         {
-            Continue();
-            activateCheat = false;
-        }
-
-        if (activateCheat) Activate();
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape))
+            {
+                Continue();
+            }
+        }   
     }
 
     public void Activate()
@@ -35,6 +35,7 @@ public class EndGame : MonoBehaviour
         Cursor.visible = true;
         Time.timeScale = 0;
         GameObject.Find("oldCanvas").GetComponent<PauseMenu>().showingInstruction = true;
+        active = true;
     }
 
     private void Continue()
@@ -44,6 +45,7 @@ public class EndGame : MonoBehaviour
         Cursor.visible = false;
         Time.timeScale = 1;
         GameObject.Find("oldCanvas").GetComponent<PauseMenu>().showingInstruction = false;
+        active = false;
     }
 
 

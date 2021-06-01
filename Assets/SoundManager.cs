@@ -11,6 +11,7 @@ public class SoundManager : MonoBehaviour
     private static AudioSource source;
     void Start()
     {
+
         playerSlash = Resources.Load<AudioClip>("playerSlash"); 
         playerDamaged = Resources.Load<AudioClip>("playerDamaged");
         enemyAttack = Resources.Load<AudioClip>("enemyAttack");

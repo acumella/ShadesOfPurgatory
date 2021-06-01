@@ -280,7 +280,7 @@ namespace SpeedTutorMainMenuSystem
                 gd.NewGame();
                 AudioListener.volume = PlayerPrefs.GetFloat("masterVolume");
                 GameMaster.SetBrightness(PlayerPrefs.GetFloat("masterBrightness"));
-                GameMaster.LoadScene(1);       
+                GameMaster.LoadScene(1);              
             }
 
             if (ButtonType == "No")
