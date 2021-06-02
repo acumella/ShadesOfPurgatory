@@ -309,7 +309,7 @@ public class PlayerController : MonoBehaviour
 
     public void Reset()
     {
-        health = 5;
+        SetHealth(5);
         isDying = false;
         GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.playerHealth = health;
         GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.Save();

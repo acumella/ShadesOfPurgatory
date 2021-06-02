@@ -2059,6 +2059,30 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1690801180293249828, guid: 6febf523d5a02904e97f020d12246c73,
+        type: 3}
+      propertyPath: m_text
+      value: 'The best attack is sometimes the best defense.
+
+
+        Your mouse
+        right-click will turn your soul into a shield,  destroying any projectiles
+        it enters contact with.
+
+
+        This feature doesn''t have a cooldown unlike
+        your attack, so feel free to use it whenever you need.
+
+
+        Good luck!
+
+
+        PRESS
+        F TO CONTINUE
+
+
+'
+      objectReference: {fileID: 0}
     - target: {fileID: 1690801180561010374, guid: 6febf523d5a02904e97f020d12246c73,
         type: 3}
       propertyPath: m_IsActive
@@ -2073,6 +2097,53 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1690801180977449299, guid: 6febf523d5a02904e97f020d12246c73,
+        type: 3}
+      propertyPath: m_text
+      value: 'In this realm, your soul is your weapon.
+
+
+        Your mouse left-click
+        will make your soul deal damage when slashing an enemy with it. Once an enemy
+        is damaged, you won''t be able to attack for one second, so reposition yourself
+        to evade being hit in that time frame.
+
+
+        The damage it deals will
+        depend on the speed the slash is dealt to. More speed will result in more
+        damage.
+
+
+        PRESS F TO CONTINUE
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1690801181293504877, guid: 6febf523d5a02904e97f020d12246c73,
+        type: 3}
+      propertyPath: m_text
+      value: 'Welcome to purgatory!
+
+
+        This realm does not care about its
+        inhabitants. Most of them end up losing their minds and attacking those who
+        still retain a bit of sanity.
+
+
+        If you want to leave, you''re in
+        for a threat: You must cleanse your soul in three sacrariums.
+
+
+        If
+        you still have your mind intact after this journey, then you are free to
+        leave this place and go wherever your soul belongs to, being heaven or hell.
+
+
+        A
+        = Go left       D = Go right    SPACEBAR = Jump
+
+
+        PRESS F TO CONTINUE'
       objectReference: {fileID: 0}
     - target: {fileID: 1690801181527018376, guid: 6febf523d5a02904e97f020d12246c73,
         type: 3}
@@ -2258,6 +2329,15 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.00024414062
+      objectReference: {fileID: 0}
+    - target: {fileID: 7460114199796774572, guid: 6febf523d5a02904e97f020d12246c73,
+        type: 3}
+      propertyPath: m_text
+      value: "Your soul is now cleansed.\n\nYou are free to leave this place... but
+        weren't you always able to do that?\n\nYou stayed here because of your own
+        will, and decided to ransack what's left here. \n\nEven though your adventures
+        in this dark place are now over, you may explore more if you wish so.\n\nNo
+        one is going to stop you anyways.\n\nPRESS F TO CONTINUE"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6febf523d5a02904e97f020d12246c73, type: 3}

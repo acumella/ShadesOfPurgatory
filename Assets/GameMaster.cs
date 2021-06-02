@@ -19,6 +19,10 @@ public static class GameMaster
         GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.enemiesDestroyedScene3 = new ArrayList();
         GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.enemiesDestroyedScene5 = new ArrayList();
         GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.enemiesDestroyedScene6 = new ArrayList();
+        GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.enemiesDestroyedScene7 = new ArrayList();
+        GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.enemiesDestroyedScene8 = new ArrayList();
+        GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.enemiesDestroyedScene9 = new ArrayList();
+        GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.enemiesDestroyedScene10 = new ArrayList();
     }
 
     private static void SecretEntrance(int level)
@@ -27,10 +31,10 @@ public static class GameMaster
         switch (level)
         {
             case 2:
-                if(currentLevel == 6) GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.secret2 = true;
+                if (currentLevel == 6 && !GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().isDying) GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.secret2 = true;
                 break;
             case 4:
-                if (currentLevel == 8) GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.secret4 = true;
+                if (currentLevel == 8 && !GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().isDying) GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.secret4 = true;
                 break;
         }
     }

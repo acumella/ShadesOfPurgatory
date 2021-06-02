@@ -40,16 +40,16 @@ public class ShowInstruction : MonoBehaviour
 
     private void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Space)) && showing)
+        if ((Input.GetKeyDown(KeyCode.F)) && showing)
         {
             mouse.SetActive(true);
             Time.timeScale = 1;
             instructions.SetActive(false);
             instructionToShow.SetActive(false);
-            GameObject.Find("oldCanvas").GetComponent<PauseMenu>().showingInstruction = false;
             shown[numInstruction-1] = true;
             Cursor.visible = false;
             showing = false;
+            GameObject.Find("oldCanvas").GetComponent<PauseMenu>().showingInstruction = false;
         }
     }
 

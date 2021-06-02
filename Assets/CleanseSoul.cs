@@ -25,6 +25,7 @@ public class CleanseSoul : MonoBehaviour
 
             GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.numSouls++;
             GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd.ActivateSouls();
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().Reset();
 
             SoundManager.PlaySound("soulPickup");
 

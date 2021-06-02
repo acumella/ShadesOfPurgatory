@@ -20,7 +20,7 @@ public class EndGame : MonoBehaviour
     {
         if (active)
         {
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.F))
             {
                 Continue();
             }
