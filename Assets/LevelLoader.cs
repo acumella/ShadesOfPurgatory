@@ -16,6 +16,7 @@ public class LevelLoader : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().canMove = false;
             StartCoroutine(LoadScene());
         }
     }
@@ -26,6 +27,7 @@ public class LevelLoader : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         GameMaster.LoadScene(intLevelToLoad);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().canMove = true;
     }
 
 }

@@ -295,10 +295,13 @@ namespace SpeedTutorMainMenuSystem
             if (ButtonType == "Yes")
             {
                 GameData gd = GameObject.FindGameObjectWithTag("GameData").GetComponent<DataManager>().Gd;
-                gd.Load();
-                AudioListener.volume = PlayerPrefs.GetFloat("masterVolume");
-                GameMaster.SetBrightness(PlayerPrefs.GetFloat("masterBrightness"));
-                GameMaster.LoadScene(gd.respawnLevel);
+                if (gd != null)
+                {
+                    gd.Load();
+                    AudioListener.volume = PlayerPrefs.GetFloat("masterVolume");
+                    GameMaster.SetBrightness(PlayerPrefs.GetFloat("masterBrightness"));
+                    GameMaster.LoadScene(gd.respawnLevel);
+                }
                 /*
                 if (PlayerPrefs.HasKey("SavedLevel"))
                 {

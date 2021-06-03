@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour
     private int previousLevel = 0;
 
     public bool isDying = false;
+    public bool canMove = true;
 
     
 
@@ -87,7 +88,7 @@ public class PlayerController : MonoBehaviour
         if (!isDying)
         {
             Jump();
-            Move();
+            if(canMove) Move();
             Turn();
         }
         AnimState();
@@ -341,7 +342,12 @@ public class PlayerController : MonoBehaviour
 
     private void Respawn()
     {
-        if (health == 0) gameOver.Pause();
+        if (health == 0)
+        {
+            gameOver.Pause();
+            rightPressed = false;
+            leftPressed = false;
+        }
         else GameMaster.Spike();
     }
 

@@ -228,19 +228,21 @@ public class GameData
     {
         if (numSouls == 1) spriteSoul1.SetActive(true);
         if (numSouls == 2) spriteSoul2.SetActive(true);
-        if (numSouls == 3)
-        {
-            spriteSoul3.SetActive(true);
-            GameMaster.EndGame();
-        }
+        if (numSouls == 3) spriteSoul3.SetActive(true);
 
+        EndGame();
+    }
+
+    private void EndGame()
+    {
+        if (numSouls == 3) GameMaster.EndGame();
     }
 
     private void DeactivateSouls()
     {
         spriteSoul1.SetActive(false);
         spriteSoul2.SetActive(false);
-        spriteSoul2.SetActive(false);
+        spriteSoul3.SetActive(false);
     }
 
 }
