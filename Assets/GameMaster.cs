@@ -46,10 +46,6 @@ public static class GameMaster
         ReloadScene();
     }
 
-    public static void EndGame() {
-        GameObject.Find("oldCanvas").GetComponent<EndGame>().Activate();
-    }
-
     public static void LoadScene(int levelToLoad)
     {
         SecretEntrance(levelToLoad);

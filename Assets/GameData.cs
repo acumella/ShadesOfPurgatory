@@ -227,15 +227,26 @@ public class GameData
     public void ActivateSouls()
     {
         if (numSouls == 1) spriteSoul1.SetActive(true);
-        if (numSouls == 2) spriteSoul2.SetActive(true);
-        if (numSouls == 3) spriteSoul3.SetActive(true);
+
+        else if (numSouls == 2)
+        {
+            spriteSoul1.SetActive(true);
+            spriteSoul2.SetActive(true);
+        }
+
+        else if (numSouls == 3)
+        {
+            spriteSoul1.SetActive(true);
+            spriteSoul2.SetActive(true);
+            spriteSoul3.SetActive(true);
+        }
 
         EndGame();
     }
 
     private void EndGame()
     {
-        if (numSouls == 3) GameMaster.EndGame();
+        if (numSouls == 3 && previousLevel!=0) GameObject.Find("oldCanvas").GetComponent<EndGame>().Activate();
     }
 
     private void DeactivateSouls()
