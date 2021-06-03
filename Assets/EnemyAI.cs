@@ -128,7 +128,6 @@ public class EnemyAI : MonoBehaviour
             }
         }        
 
-        // Attack
         //Vector2 posForward = transform.position + transform.forward;
         //float distanceToPlayer = Vector3.Distance(transform.position, target.position);
 
